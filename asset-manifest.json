@@ -1,0 +1,21 @@
+{
+  "files": {
+    "main.css": "/cards-training/static/css/main.1a01de48.css",
+    "main.js": "/cards-training/static/js/main.930eff7f.js",
+    "static/media/defaultAvatar.svg": "/cards-training/static/media/defaultAvatar.8b60d1fae0671cc82efc16174858714d.svg",
+    "static/media/404.svg": "/cards-training/static/media/404.dae7af4892f2a3abe805a174178919f2.svg",
+    "static/media/emailImg.svg": "/cards-training/static/media/emailImg.9c85131df94a16b8c5bb22911d3653dd.svg",
+    "static/media/pencil.svg": "/cards-training/static/media/pencil.0555732b3b9e8f537d46f4ccbde7b262.svg",
+    "static/media/checked.svg": "/cards-training/static/media/checked.0b6a1bcf5d417ff0a947.svg",
+    "static/media/defaultCover.svg": "/cards-training/static/media/defaultCover.71e02a724700a9270e72298985ff7e5f.svg",
+    "index.html": "/cards-training/index.html",
+    "static/media/logout.svg": "/cards-training/static/media/logout.6aacae96c673ca973607f9c893793b02.svg",
+    "static/media/eyeIcon.svg": "/cards-training/static/media/eyeIcon.2cecc50f104028b5d30e022b16572f78.svg",
+    "main.1a01de48.css.map": "/cards-training/static/css/main.1a01de48.css.map",
+    "main.930eff7f.js.map": "/cards-training/static/js/main.930eff7f.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.1a01de48.css",
+    "static/js/main.930eff7f.js"
+  ]
+}
