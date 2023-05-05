@@ -91,7 +91,9 @@ export const EditCardModal = (props: AddCardModalPropsType) => {
           width: '347px',
         }}
       >
-        <Typography>Edit card</Typography>
+        <Typography variant="h5" component="h2">
+          Edit card
+        </Typography>
         <CloseIcon onClick={props.handleClose} />
       </div>
 
@@ -158,8 +160,12 @@ export const EditCardModal = (props: AddCardModalPropsType) => {
                     style={{ display: 'none' }}
                     accept="image/png, image/jpeg, image/svg"
                   />
-                  <Button style={{ marginLeft: '95px' }} variant="contained" component="span">
-                    Upload button
+                  <Button
+                    style={{ marginTop: '10px', display: 'flex', justifyContent: 'center' }}
+                    variant="text"
+                    component="span"
+                  >
+                    Update picture
                   </Button>
                 </label>
               )}

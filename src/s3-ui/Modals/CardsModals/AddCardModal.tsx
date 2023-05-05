@@ -78,7 +78,9 @@ export const AddCardModal = (props: AddCardModalPropsType) => {
           width: '347px',
         }}
       >
-        <Typography>Add new card</Typography>
+        <Typography variant="h5" component="h2">
+          Add new card
+        </Typography>
         <CloseIcon onClick={props.handleClose} />
       </div>
 
@@ -92,7 +94,7 @@ export const AddCardModal = (props: AddCardModalPropsType) => {
         }}
       >
         <div>
-          <div>Choose a question format</div>
+          <div style={{ marginBottom: '10px' }}>Choose a question format</div>
           <Controller
             render={({ field }) => (
               <div>
@@ -117,8 +119,12 @@ export const AddCardModal = (props: AddCardModalPropsType) => {
                           style={{ display: 'none' }}
                           accept="image/png, image/jpeg, image/svg"
                         />
-                        <Button style={{ marginLeft: '95px' }} variant="contained" component="span">
-                          Upload button
+                        <Button
+                          style={{ marginTop: '10px', display: 'flex', justifyContent: 'center' }}
+                          variant="text"
+                          component="span"
+                        >
+                          Upload picture
                         </Button>
                       </label>
                     )}
