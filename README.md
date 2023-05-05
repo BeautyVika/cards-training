@@ -10,7 +10,7 @@ You can share your cards with your friends, as well as learn from other people's
 
 ## Authors:
 
-[![demo](https://img.shields.io/badge/-demo-brightgreen?style=for-the-badge&logo=github)](beautyvika.github.io/cards-training/)
+[![demo](https://img.shields.io/badge/-demo-brightgreen?style=for-the-badge&logo=github)](https://beautyvika.github.io/cards-training/)
 
 - [@Freezerq](https://github.com/Freezerq)
 - [@IKnopochka](https://github.com/IKnopochka)
