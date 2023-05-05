@@ -1,0 +1,30 @@
+.answerContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  padding: 0 33px 30px 33px;
+  .answer {
+    margin-top: 35px;
+    font-family: 'Montserrat', sans-serif;
+    font-style: normal;
+    font-size: 16px;
+    line-height: 24px;
+    color: #000000;
+  }
+  .title {
+    margin-top: 24px;
+    font-family: 'Montserrat', sans-serif;
+    font-style: normal;
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 24px;
+    color: #000000;
+  }
+  .button {
+    letter-spacing: 0.01em;
+    font-size: 16px;
+    width: 373px;
+    margin: 42px auto;
+  }
+}
+

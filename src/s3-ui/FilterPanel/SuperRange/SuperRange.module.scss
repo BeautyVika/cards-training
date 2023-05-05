@@ -1,0 +1,17 @@
+.wrapper {
+    display: flex;
+    gap: 20px;
+    .number {
+        display: block;
+        min-width: 30px;
+        height: 20px;
+        border: 1px solid #D9D9D9;
+        text-align: center;
+        padding: 6px;
+        font-family: Montserrat, sans-serif;
+        font-style: normal;
+        font-weight: 600;
+        font-size: 16px;
+        line-height: 20px;
+    }
+}

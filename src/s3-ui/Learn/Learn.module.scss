@@ -1,0 +1,17 @@
+.questionContainer {
+  width: 439px;
+  margin: 50px auto;
+  .title {
+    display: flex;
+    justify-content: center;
+
+    margin: 75px 0 18px 0;
+
+    font-family: 'Montserrat', sans-serif;
+    font-size: 22px;
+    font-weight: 600;
+    font-style: normal;
+    line-height: 27px;
+  }
+}
+

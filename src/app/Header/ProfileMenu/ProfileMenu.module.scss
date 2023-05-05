@@ -1,0 +1,13 @@
+.container {
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+  .name {
+    font-weight: 500;
+    font-size: 16px;
+    line-height: 24px;
+    margin-right: 12px;
+    border-bottom: 1px dashed black;
+    color: #000000;
+  }
+}

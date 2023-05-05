@@ -1,0 +1,11 @@
+span {
+  position: relative;
+  .pen{
+    position: absolute;
+    width: 15px;
+    height: 15px;
+    bottom: 0;
+    right: -20px;
+  }
+}
+

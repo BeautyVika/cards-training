@@ -1,0 +1,38 @@
+.mainContainer {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: flex-end;
+    justify-content: space-between;
+    width: 50%;
+    .container {
+        display: flex;
+        flex-direction: column;
+        .text {
+            font-family: Montserrat, sans-serif;
+            font-size: 14px;
+            font-weight: 500;
+            font-style: normal;
+            line-height: 17px;
+            margin-bottom: 8px;
+        }
+    }
+}
+
+
+
+//.input {
+//    display: flex;
+//    width: 100%;
+//    margin-left: 10px;
+//    background-color: transparent;
+//}
+//
+//.paper{
+//    display: flex;
+//    align-items: center;
+//    height: 36px;
+//    padding: 2px 4px;
+//    background-color: transparent;
+//    border: 1px solid #d9d9d9;
+//    border-radius: 2px;
+//}

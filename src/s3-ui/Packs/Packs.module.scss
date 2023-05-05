@@ -1,0 +1,44 @@
+.block {
+  margin: 36px 40px;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  .header {
+   margin: 40px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+      .title {
+        margin-right: 5px;
+
+        font-size: 22px;
+        font-weight: 600;
+        line-height: 27px;
+      }
+  }
+  .filterContainer {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: flex-end;
+    justify-content: space-between;
+    margin: 40px 0 24px;
+    .search {
+      width: 45%
+    }
+  }
+  .container{
+    display: flex;
+    text-align: center;
+    .message {
+      font-family: Montserrat, sans-serif;
+      font-weight: 400;
+      font-size: 1rem;
+      line-height: 1.5;
+      width: 100%;
+      margin: 100px auto;
+      color: #000000;
+      opacity: 0.5;
+    }
+  }
+}

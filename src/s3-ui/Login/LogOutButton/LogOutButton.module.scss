@@ -1,0 +1,15 @@
+.container {
+  width: 127px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 36px;
+
+  .svg {
+    width: 16px;
+    height: 16px;
+    display: inline-block;
+    margin-right: 3px;
+  }
+}
+

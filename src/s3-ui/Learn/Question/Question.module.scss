@@ -1,0 +1,29 @@
+.questionContainer {
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+  .question {
+    margin-top: 30px;
+    font-family: 'Montserrat', sans-serif;
+    font-style: normal;
+    font-size: 16px;
+    line-height: 24px;
+    color: #000000;
+  }
+  .numberOfAnswer {
+    margin-top: 13px;
+    font-family: 'Montserrat', sans-serif;
+    font-style: normal;
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 24px;
+    color: #000000;
+    opacity: 0.5;
+  }
+  .button {
+    letter-spacing: 0.01em;
+    font-size: 16px;
+    width: 373px;
+    margin: 29px auto;
+  }
+}
