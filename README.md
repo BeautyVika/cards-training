@@ -1,46 +1,58 @@
-# Getting Started with Create React App
+# Cards training
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+Here is an application that can help with any training.
 
-## Available Scripts
+For example, memorizing new words in English, technical terminology, irregular verbs. You make up questions on any topic and arrange them in a deck, one card - one question.
+For figurative memorization - you can add a thematic picture to your question.
+When you're learning, the app randomly shows you flashcards, you see a question, then you try to find the answer yourself and, if it doesn't work, open the back and check yourself.
 
-In the project directory, you can run:
+You can share your cards with your friends, as well as learn from other people's cards.
 
-### `yarn start`
+## Authors:
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+[![demo](https://img.shields.io/badge/-demo-brightgreen?style=for-the-badge&logo=github)](https://olgakapskaya.github.io/cards/)
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+- [@Freezerq](https://github.com/Freezerq)
+- [@IKnopochka](https://github.com/IKnopochka)
+- [@BeautyVika](https://github.com/BeautyVika)
 
-### `yarn test`
+## Stack:
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+- React
+- Redux-toolkit
+- React-router-dom
+- Typescript
+- ESLint
+- Prettier
+- MaterialUI
+- Axios
+- React-Hook-Form
 
-### `yarn build`
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+## Environment Setup:
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+ Install packages
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+- yarn
 
-### `yarn eject`
+```sh
+yarn install
+```
+#### WebStorm is preferred
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+- Prettier
+  WebStorm -> Settings -> Languages & Frameworks -> JavaScript -> Prettier -> check the following:
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+- [x] Prettier Package ~/dev/path-to-project/node_modules/prettier
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+- [x] Run for Files: {\*\*/\*,\*}.{js,ts,jsx,tsx}
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+- [x] on 'Reformat Code action'
+- [x] on Save
 
-## Learn More
+* ESlint
+  WebStorm -> Settings -> Languages & Frameworks -> Code Quality Tools -> ESlint -> check the following:
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
+- [x] Automatic ESLint configuration
+- [x] Run for Files: {\*\*/\*,\*}.{js,ts,jsx,tsx,html,vue}
+- [x] Run eslint --fix on save
