@@ -46,8 +46,8 @@ export const CreateNewPassword = () => {
         display: 'flex',
         flexWrap: 'wrap',
         m: 1,
-        width: '413px',
-        height: '372px',
+        width: '420px',
+        height: '384px',
         margin: '50px auto',
       }}
     >
@@ -63,7 +63,7 @@ export const CreateNewPassword = () => {
               sx={{
                 width: '347px',
                 borderRadius: '30px',
-                mt: '42px',
+                mt: '41px',
                 background: '#366EFF',
                 letterSpacing: '0.01em',
               }}

@@ -20,8 +20,8 @@ export const CheckEmail: FC = () => {
   return (
     <Box
       sx={{
-        width: '413px',
-        height: '552px',
+        width: '420px',
+        height: '480px',
         m: '60px auto',
       }}
     >

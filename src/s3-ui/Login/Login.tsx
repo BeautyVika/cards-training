@@ -39,8 +39,8 @@ export const Login: FC = () => {
         display: 'flex',
         flexWrap: 'wrap',
         m: 1,
-        width: '413px',
-        height: '552px',
+        width: '420px',
+        height: '528px',
         margin: '50px auto',
       }}
     >
@@ -69,7 +69,7 @@ export const Login: FC = () => {
             </NavLink>
             <SuperButton
               style={{
-                marginTop: '69px',
+                marginTop: '66px',
                 letterSpacing: '0.01em',
                 fontSize: '1.3rem',
                 width: '347px',

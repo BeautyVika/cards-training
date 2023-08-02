@@ -40,8 +40,8 @@ export const Registrationn = () => {
         display: 'flex',
         flexWrap: 'wrap',
         m: 1,
-        width: '413px',
-        height: '552px',
+        width: '420px',
+        height: '528px',
         margin: '50px auto',
       }}
     >
@@ -67,7 +67,7 @@ export const Registrationn = () => {
             />
             <SuperButton
               style={{
-                marginTop: '69px',
+                marginTop: '60px',
                 letterSpacing: '0.01em',
                 fontSize: '1.3rem',
                 width: '347px',
