@@ -24,7 +24,7 @@ const PersonalInfo = ({ profile, onChangeHandler, ...props }: PersonalInfoPropsT
         <SuperButton className={style.button}>Open packs</SuperButton>
       </NavLink>
 
-      <h2 className={style.title}>Personal Information</h2>
+      {/*<h2 className={style.title}>Personal Information</h2>*/}
 
       <ProfileAvatar size={100} withButton />
 

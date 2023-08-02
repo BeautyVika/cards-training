@@ -1,40 +1,39 @@
-.container {
-  height: 100vh;
+.mainContainer {
   display: flex;
-  justify-content: center;
+  flex-direction: column;
   align-items: center;
-  position: relative;
-  .form {
+  justify-content: center;
+  .button{
+    width: 200px;
+    display: block;
+    align-self: flex-end;
+    margin-top: 15px;
+  }
+  .container {
     display: flex;
     flex-direction: column;
-    width: 413px;
-    height: 528px;
-    box-shadow: 1px 1px 2px rgba(0, 0, 0, 0.1), -1px -1px 2px rgba(0, 0, 0, 0.1);
-    border-radius: 2px;
     align-items: center;
-    justify-content: space-around;
-    position: relative;
-
-    .button {
-      position: absolute;
-      width: 200px;
-      top: -5rem;
-      left: 47rem;
-    }
 
     .title {
       font-family: 'Montserrat', sans-serif;
-      font-weight: 600;
-      font-size: 1.2rem;
-    }
-    .name {
-      height: 20px;
-      padding: 10px;
+      font-size: 26px;
+      font-style: normal;
+      font-weight: 700;
+      line-height: 36px;
     }
 
+    .name {
+      margin-top: 6px;
+      display: flex;
+      justify-content: center;
+    }
     .email {
-      padding: 10px;
-      height: 20px;
+      color: #808080;
+      font-family:'Montserrat', sans-serif;
+      font-size: 14px;
+      font-style: normal;
+      font-weight: 400;
+      line-height: 24px;
     }
   }
 }
