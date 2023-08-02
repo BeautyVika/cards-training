@@ -11,7 +11,7 @@ import { Learn } from 's3-ui/Learn/Learn'
 import { Login } from 's3-ui/Login/Login'
 import { Packs } from 's3-ui/Packs/Packs'
 import { CheckEmail } from 's3-ui/PassRecovery/checkEmail/CheckEmail'
-import { PasswordRecovery } from 's3-ui/PassRecovery/PasswordRecoveryy'
+import { PasswordRecovery } from 's3-ui/PassRecovery/PasswordRecovery'
 import { Profile } from 's3-ui/Profile/Profile'
 import { Registrationn } from 's3-ui/Registrationn/Registrationn'
 
@@ -37,7 +37,7 @@ const AppRoutes = () => {
       <Route path={PATH.ERROR404} element={<ErrorPage />} />
       <Route path={PATH.PASSWORD_RESTORE} element={<PasswordRecovery />} />
       <Route path={PATH.NEW_PASSWORD} element={<CreateNewPassword />} />
-      <Route path={PATH.CHECK_EMAIL} element={<CheckEmail />} />
+      <Route path={PATH.CHECK_EMAIL + '/:email'} element={<CheckEmail />} />
 
       <Route element={<PrivateRoutes />}>
         <Route path={PATH.PROFILE} element={<Profile />} />

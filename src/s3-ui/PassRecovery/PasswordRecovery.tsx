@@ -74,7 +74,7 @@ export const PasswordRecovery = () => {
               type="submit"
               disabled={appStatus === 'loading'}
             >
-              Sign Up
+              Send instructions
             </SuperButton>
           </form>
           <div className={s.already}>Did you remember your password?</div>
