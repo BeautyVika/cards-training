@@ -36,7 +36,7 @@ export const authAPI = {
         from: 'test-front-admin <ai73a@yandex.by>',
         message: `<div style="background-color: lime; padding: 15px">
 password recovery link: 
-<a href='https://freezerq.github.io/fridayproject/#/set-new-password/$token$'>
+<a href='https://beautyvika.github.io/cards-training/#/set-new-password/$token$'>
 link</a>
 </div>`,
       },
