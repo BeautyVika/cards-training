@@ -32,7 +32,7 @@ export const PasswordInput: FC<PasswordInputProps> = ({ id, register, error }) =
         id={id}
         type={showPassword ? 'text' : 'password'}
         error={!!error}
-        {...register('password', {
+        {...register(id, {
           required: 'Password is a required field!',
           minLength: { value: 6, message: 'Minimum length of password is 6 symbols' },
           maxLength: { value: 30, message: 'Maximum length of password is 30 symbols' },

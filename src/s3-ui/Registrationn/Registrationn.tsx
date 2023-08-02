@@ -1,21 +1,23 @@
-import React, { FC } from 'react'
+import React from 'react'
 
 import Box from '@mui/material/Box'
-import Checkbox from '@mui/material/Checkbox'
 import Paper from '@mui/material/Paper'
 import TextField from '@mui/material/TextField'
 import { SubmitHandler, useForm } from 'react-hook-form'
 import { Navigate, NavLink } from 'react-router-dom'
 
-import s from './Login.module.scss'
-
-import { PATH } from 'app/Routes/AppRoutes'
-import { LoginType } from 's1-DAL/authAPI'
 import { useAppDispatch, useAppSelector } from 's1-DAL/store'
-import { loginTC } from 's2-BLL/authSlice'
+import { registrationThunk } from 's2-BLL/authSlice'
+import s from 's3-ui/Login/Login.module.scss'
 import { appStatusSelector, isLoggedInSelector, PasswordInput, SuperButton } from 's4-common'
 
-export const Login: FC = () => {
+type RegistrationType = {
+  email: string
+  password: string
+  confirmPassword: string
+}
+
+export const Registrationn = () => {
   const dispatch = useAppDispatch()
   const isLoggedIn = useAppSelector(isLoggedInSelector)
   const appStatus = useAppSelector(appStatusSelector)
@@ -23,10 +25,9 @@ export const Login: FC = () => {
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm<LoginType>({ mode: 'onTouched' })
-
-  const onSubmit: SubmitHandler<LoginType> = (data: LoginType) => {
-    dispatch(loginTC(data))
+  } = useForm<RegistrationType>({ mode: 'onTouched' })
+  const onSubmit: SubmitHandler<RegistrationType> = (data: RegistrationType) => {
+    dispatch(registrationThunk({ email: data.email, password: data.password }))
   }
 
   if (isLoggedIn) {
@@ -46,7 +47,7 @@ export const Login: FC = () => {
     >
       <Paper elevation={3}>
         <div className={s.paperContainer}>
-          <div className={s.title}>Sign in</div>
+          <h1 className={s.title}>Sign Up</h1>
           <form className={s.form} onSubmit={handleSubmit(onSubmit)}>
             <TextField
               sx={{ m: 1, width: '347px' }}
@@ -59,14 +60,11 @@ export const Login: FC = () => {
               {...register('email', { required: 'Email is a required field!' })}
             />
             <PasswordInput id="password" register={register} error={errors.password} />
-
-            <div className={s.rememberMe}>
-              <Checkbox id="rememberMe" {...register('rememberMe')} />
-              <span>Remember me</span>
-            </div>
-            <NavLink to={PATH.PASSWORD_RESTORE} className={s.forgot}>
-              Forgot Password?
-            </NavLink>
+            <PasswordInput
+              id="confirmPassword"
+              error={errors.confirmPassword}
+              register={register}
+            />
             <SuperButton
               style={{
                 marginTop: '69px',
@@ -77,12 +75,12 @@ export const Login: FC = () => {
               type="submit"
               disabled={appStatus === 'loading'}
             >
-              Sign In
+              Sign Up
             </SuperButton>
           </form>
-          <div className={s.already}>{`Don't have an account yet?`}</div>
-          <NavLink to={'/registration'} className={s.singUp}>
-            Sing Up
+          <div className={s.already}>Already have an account?</div>
+          <NavLink to={'/login'} className={s.singUp}>
+            Sing In
           </NavLink>
         </div>
       </Paper>

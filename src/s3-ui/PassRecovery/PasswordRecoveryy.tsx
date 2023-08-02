@@ -1,36 +1,39 @@
-import React, { FC } from 'react'
+import React, { useState } from 'react'
 
 import Box from '@mui/material/Box'
-import Checkbox from '@mui/material/Checkbox'
 import Paper from '@mui/material/Paper'
 import TextField from '@mui/material/TextField'
 import { SubmitHandler, useForm } from 'react-hook-form'
-import { Navigate, NavLink } from 'react-router-dom'
-
-import s from './Login.module.scss'
+import { NavLink, useNavigate } from 'react-router-dom'
 
 import { PATH } from 'app/Routes/AppRoutes'
-import { LoginType } from 's1-DAL/authAPI'
 import { useAppDispatch, useAppSelector } from 's1-DAL/store'
-import { loginTC } from 's2-BLL/authSlice'
-import { appStatusSelector, isLoggedInSelector, PasswordInput, SuperButton } from 's4-common'
+import { getNewToken } from 's2-BLL/authSlice'
+import s from 's3-ui/Login/Login.module.scss'
+import { appStatusSelector, isSendedEmailSelector, SuperButton } from 's4-common'
 
-export const Login: FC = () => {
+type PasswordRecoveryFormType = {
+  email: string
+}
+
+export const PasswordRecovery = () => {
+  const [email, setEmail] = useState('')
   const dispatch = useAppDispatch()
-  const isLoggedIn = useAppSelector(isLoggedInSelector)
+  const isSendedEmail = useAppSelector(isSendedEmailSelector)
   const appStatus = useAppSelector(appStatusSelector)
+  const navigate = useNavigate()
   const {
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm<LoginType>({ mode: 'onTouched' })
-
-  const onSubmit: SubmitHandler<LoginType> = (data: LoginType) => {
-    dispatch(loginTC(data))
+  } = useForm<PasswordRecoveryFormType>({ mode: 'onTouched' })
+  const onSubmit: SubmitHandler<PasswordRecoveryFormType> = (data: PasswordRecoveryFormType) => {
+    setEmail(data.email)
+    dispatch(getNewToken(data.email))
   }
 
-  if (isLoggedIn) {
-    return <Navigate to={'/profile'} />
+  if (isSendedEmail) {
+    navigate(`${PATH.CHECK_EMAIL}/${email}`)
   }
 
   return (
@@ -46,7 +49,7 @@ export const Login: FC = () => {
     >
       <Paper elevation={3}>
         <div className={s.paperContainer}>
-          <div className={s.title}>Sign in</div>
+          <h1 className={s.title}>Forgot your password?</h1>
           <form className={s.form} onSubmit={handleSubmit(onSubmit)}>
             <TextField
               sx={{ m: 1, width: '347px' }}
@@ -58,15 +61,9 @@ export const Login: FC = () => {
               helperText={errors.email?.message}
               {...register('email', { required: 'Email is a required field!' })}
             />
-            <PasswordInput id="password" register={register} error={errors.password} />
-
-            <div className={s.rememberMe}>
-              <Checkbox id="rememberMe" {...register('rememberMe')} />
-              <span>Remember me</span>
+            <div className={s.describe}>
+              Enter your email address and we will send you further instructions
             </div>
-            <NavLink to={PATH.PASSWORD_RESTORE} className={s.forgot}>
-              Forgot Password?
-            </NavLink>
             <SuperButton
               style={{
                 marginTop: '69px',
@@ -77,12 +74,12 @@ export const Login: FC = () => {
               type="submit"
               disabled={appStatus === 'loading'}
             >
-              Sign In
+              Sign Up
             </SuperButton>
           </form>
-          <div className={s.already}>{`Don't have an account yet?`}</div>
-          <NavLink to={'/registration'} className={s.singUp}>
-            Sing Up
+          <div className={s.already}>Did you remember your password?</div>
+          <NavLink to={'/login'} className={s.singUp}>
+            Try logging in
           </NavLink>
         </div>
       </Paper>
