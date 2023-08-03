@@ -28,9 +28,10 @@ export const LogOutButton = () => {
           justifyContent: 'center',
           alignItems: 'center',
           fontWeight: '500',
+          cursor: 'pointer',
         }}
       >
-        <img src={logOutIcon} className={style.svg} />
+        <img src={logOutIcon} className={style.svg} alt="logOut" />
         <div>Log out</div>
       </SuperButton>
     </div>

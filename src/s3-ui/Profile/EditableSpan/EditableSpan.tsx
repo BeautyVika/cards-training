@@ -1,8 +1,9 @@
-import React, { ChangeEvent, useState } from 'react'
+import React, { ChangeEvent, memo, useState } from 'react'
 
+import BorderColorIcon from '@mui/icons-material/BorderColor'
+import CheckCircleIcon from '@mui/icons-material/CheckCircle'
+import { IconButton } from '@mui/material'
 import TextField from '@mui/material/TextField'
-
-import pencil from '../../../assets/img/pencil.svg'
 
 import s from './EditableSpan.module.scss'
 
@@ -11,7 +12,7 @@ type EditableSpanPropsType = {
   onChange: (newValue: string) => void
 }
 
-export const EditableSpan = React.memo(function (props: EditableSpanPropsType) {
+export const EditableSpan = memo(function (props: EditableSpanPropsType) {
   let [editMode, setEditMode] = useState(false)
   let [title, setTitle] = useState(props.value)
 
@@ -28,18 +29,25 @@ export const EditableSpan = React.memo(function (props: EditableSpanPropsType) {
   }
 
   return editMode ? (
-    <TextField
-      sx={{ width: '348px', height: '20px', marginTop: '36px', marginBottom: '10px' }}
-      label="Nickmame"
-      value={title}
-      onChange={changeTitle}
-      autoFocus
-      onBlur={activateViewMode}
-    />
+    <div className={s.inputContainer}>
+      <TextField
+        sx={{ width: '348px', height: '20px' }}
+        label="Nickmame"
+        value={title}
+        onChange={changeTitle}
+        autoFocus
+        onBlur={activateViewMode}
+      />
+      <IconButton onClick={() => setEditMode(false)}>
+        <CheckCircleIcon fontSize="large" color="primary" className={s.icon} />
+      </IconButton>
+    </div>
   ) : (
-    <span onDoubleClick={activateEditMode}>
+    <span onDoubleClick={activateEditMode} className={s.textContainer}>
       {props.value}
-      <img src={pencil} className={s.pen} alt={'change name'} />
+      <IconButton onClick={() => setEditMode(true)}>
+        <BorderColorIcon fontSize="small" color="primary" className={s.icon} />
+      </IconButton>
     </span>
   )
 })

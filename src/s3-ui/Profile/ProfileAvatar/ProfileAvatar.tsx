@@ -70,7 +70,7 @@ export const ProfileAvatar: FC<ProfileAvatarPropsType> = ({ size, withButton }) 
               right: '-15px',
             }}
           >
-            <CloudUploadIcon />
+            <CloudUploadIcon className={s.icon} />
           </IconButton>
         </label>
       )}

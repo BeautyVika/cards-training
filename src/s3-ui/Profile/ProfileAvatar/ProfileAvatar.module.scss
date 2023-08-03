@@ -2,4 +2,7 @@
   display: flex;
   position: relative;
   align-items: flex-end;
+  .icon:hover {
+    color: #366EFF;
+  }
 }
