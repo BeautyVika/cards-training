@@ -1,60 +1,34 @@
-import React, { useState } from 'react'
+import React from 'react'
 
-import { useForm, Controller } from 'react-hook-form'
+import Box from '@mui/material/Box'
+import Paper from '@mui/material/Paper'
+import TextField from '@mui/material/TextField'
+import { SubmitHandler, useForm } from 'react-hook-form'
 import { Navigate, NavLink } from 'react-router-dom'
-
-import eye from '../../assets/img/eyeIcon.svg'
 
 import { useAppDispatch, useAppSelector } from 's1-DAL/store'
 import { registrationThunk } from 's2-BLL/authSlice'
-import style from 's3-ui/Registration/Registration.module.scss'
-import {
-  appStatusSelector,
-  CommonInput,
-  emailCheck,
-  isLoggedInSelector,
-  SuperButton,
-} from 's4-common'
+import s from 's3-ui/Login/Login.module.scss'
+import { appStatusSelector, isLoggedInSelector, PasswordInput, SuperButton } from 's4-common'
+import { boxCreatorStyle } from 's4-common/utils/boxCreatorStyle'
 
-type FormValues = {
+type RegistrationType = {
   email: string
   password: string
   confirmPassword: string
 }
 
 export const Registration = () => {
+  const dispatch = useAppDispatch()
   const isLoggedIn = useAppSelector(isLoggedInSelector)
   const appStatus = useAppSelector(appStatusSelector)
-
-  const dispatch = useAppDispatch()
   const {
+    register,
     handleSubmit,
-    control,
     formState: { errors },
-  } = useForm<FormValues>()
-
-  const submitFunc = (data: FormValues) => {
+  } = useForm<RegistrationType>({ mode: 'onTouched' })
+  const onSubmit: SubmitHandler<RegistrationType> = (data: RegistrationType) => {
     dispatch(registrationThunk({ email: data.email, password: data.password }))
-  }
-
-  const [isPass1Visible, setIsPass1Visible] = useState('password')
-
-  const [isPass2Visible, setIsPass2Visible] = useState('password')
-
-  const changePass1Visible = () => {
-    if (isPass1Visible === 'password') {
-      setIsPass1Visible('text')
-    } else {
-      setIsPass1Visible('password')
-    }
-  }
-
-  const changePass2Visible = () => {
-    if (isPass2Visible === 'password') {
-      setIsPass2Visible('text')
-    } else {
-      setIsPass2Visible('password')
-    }
   }
 
   if (isLoggedIn) {
@@ -62,95 +36,46 @@ export const Registration = () => {
   }
 
   return (
-    <div className={style.container}>
-      <form className={style.form} onSubmit={handleSubmit(submitFunc)}>
-        <h1 className={style.title}>Sign Up</h1>
-        <Controller
-          rules={{
-            pattern: {
-              value: emailCheck,
-              message: 'Email is not valid',
-            },
-            required: 'Field is required',
-            maxLength: { value: 30, message: 'Maximum length of email is 30 symbols' },
-          }}
-          control={control}
-          name="email"
-          render={({ field: { onChange } }) => (
-            <div className={style.item}>
-              <CommonInput
-                autoComplete={'email'}
-                onChange={onChange} // send value to hook form
-                error={errors.email?.message}
-                fieldname={'Email'}
-              />
-            </div>
-          )}
-        />
-        <Controller
-          rules={{
-            minLength: { value: 6, message: 'Minimum length of password is 6 symbols' },
-            required: 'Field is required',
-            maxLength: { value: 30, message: 'Maximum length of password is 30 symbols' },
-          }}
-          control={control}
-          name="password"
-          render={({ field: { onChange } }) => (
-            <div className={style.item}>
-              <CommonInput
-                autoComplete={'new-password'}
-                onChange={onChange} // send value to hook form
-                error={errors.password?.message}
-                fieldname={'Password'}
-                type={isPass1Visible}
-              />
-              <img
-                onClick={changePass1Visible}
-                className={style.eyeIcon}
-                src={eye}
-                alt={'show Password'}
-              />
-            </div>
-          )}
-        />
-        <Controller
-          rules={{
-            required: 'Field is required',
-            validate: (value, formValues) =>
-              value === formValues.password || 'Passwords are not the same',
-          }}
-          control={control}
-          name="confirmPassword"
-          render={({ field: { onChange } }) => (
-            <div className={style.item}>
-              <CommonInput
-                autoComplete={'new-password'}
-                onChange={onChange}
-                error={errors.confirmPassword?.message}
-                fieldname={'Confirm Password'}
-                type={isPass2Visible}
-              />
-              <img
-                onClick={changePass2Visible}
-                className={style.eyeIcon}
-                src={eye}
-                alt={'show Password'}
-              />
-            </div>
-          )}
-        />
-        <SuperButton
-          style={{ marginTop: '60px', letterSpacing: '0.01em', fontSize: '1.3rem' }}
-          type="submit"
-          disabled={appStatus === 'loading'}
-        >
-          Sign Up
-        </SuperButton>
-        <div className={style.divHaveAnAcc}>Already have an account?</div>
-        <NavLink className={style.navLinkSignIn} to={'/login'}>
-          Sign In
-        </NavLink>
-      </form>
-    </div>
+    <Box sx={boxCreatorStyle(528)}>
+      <Paper elevation={3}>
+        <div className={s.paperContainer}>
+          <h1 className={s.title}>Sign Up</h1>
+          <form className={s.form} onSubmit={handleSubmit(onSubmit)}>
+            <TextField
+              sx={{ m: 1, width: '347px' }}
+              id="email"
+              label="Email"
+              variant="standard"
+              margin="normal"
+              error={!!errors.email}
+              helperText={errors.email?.message}
+              {...register('email', { required: 'Email is a required field!' })}
+            />
+            <PasswordInput id="password" register={register} error={errors.password} />
+            <PasswordInput
+              id="confirmPassword"
+              error={errors.confirmPassword}
+              register={register}
+            />
+            <SuperButton
+              style={{
+                marginTop: '60px',
+                letterSpacing: '0.01em',
+                fontSize: '1.3rem',
+                width: '347px',
+              }}
+              type="submit"
+              disabled={appStatus === 'loading'}
+            >
+              Sign Up
+            </SuperButton>
+          </form>
+          <div className={s.already}>Already have an account?</div>
+          <NavLink to={'/login'} className={s.singUp}>
+            Sing In
+          </NavLink>
+        </div>
+      </Paper>
+    </Box>
   )
 }

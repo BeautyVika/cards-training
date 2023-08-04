@@ -14,6 +14,7 @@ import { LoginType } from 's1-DAL/authAPI'
 import { useAppDispatch, useAppSelector } from 's1-DAL/store'
 import { loginTC } from 's2-BLL/authSlice'
 import { appStatusSelector, isLoggedInSelector, PasswordInput, SuperButton } from 's4-common'
+import { boxCreatorStyle } from 's4-common/utils/boxCreatorStyle'
 
 export const Login: FC = () => {
   const dispatch = useAppDispatch()
@@ -34,16 +35,7 @@ export const Login: FC = () => {
   }
 
   return (
-    <Box
-      sx={{
-        display: 'flex',
-        flexWrap: 'wrap',
-        m: 1,
-        width: '420px',
-        height: '528px',
-        margin: '50px auto',
-      }}
-    >
+    <Box sx={boxCreatorStyle(528)}>
       <Paper elevation={3}>
         <div className={s.paperContainer}>
           <div className={s.title}>Sign in</div>
@@ -69,6 +61,8 @@ export const Login: FC = () => {
             </NavLink>
             <SuperButton
               style={{
+                borderRadius: '30px',
+                background: '#366EFF',
                 marginTop: '66px',
                 letterSpacing: '0.01em',
                 fontSize: '1.3rem',

@@ -9,6 +9,8 @@ import emailImg from '../../../assets/img/emailImg.svg'
 
 import s from './CheckEmail.module.scss'
 
+import { boxCreatorStyle } from 's4-common/utils/boxCreatorStyle'
+
 export const CheckEmail: FC = () => {
   const navigate = useNavigate()
   const onClickHandler = () => {
@@ -18,13 +20,7 @@ export const CheckEmail: FC = () => {
   const email = location.pathname.split('/').pop()
 
   return (
-    <Box
-      sx={{
-        width: '420px',
-        height: '480px',
-        m: '60px auto',
-      }}
-    >
+    <Box sx={boxCreatorStyle(400)}>
       <Paper elevation={3}>
         <div className={s.containerPaper}>
           <div className={s.title}>Check Email</div>
@@ -32,11 +28,11 @@ export const CheckEmail: FC = () => {
           <p className={s.text}>{`We’ve sent an Email with instructions to ${email}`}</p>
           <Button
             sx={{
-              width: '347px',
               borderRadius: '30px',
-              m: '41px 0 48px ',
               background: '#366EFF',
               letterSpacing: '0.01em',
+              width: '347px',
+              m: '41px 0 48px ',
             }}
             type={'submit'}
             variant={'contained'}

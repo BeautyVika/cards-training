@@ -11,6 +11,7 @@ import { useAppDispatch, useAppSelector } from 's1-DAL/store'
 import { getNewToken } from 's2-BLL/authSlice'
 import s from 's3-ui/Login/Login.module.scss'
 import { appStatusSelector, isSendedEmailSelector, SuperButton } from 's4-common'
+import { boxCreatorStyle } from 's4-common/utils/boxCreatorStyle'
 
 type PasswordRecoveryFormType = {
   email: string
@@ -37,16 +38,7 @@ export const PasswordRecovery = () => {
   }
 
   return (
-    <Box
-      sx={{
-        display: 'flex',
-        flexWrap: 'wrap',
-        m: 1,
-        width: '420px',
-        height: '456px',
-        margin: '50px auto',
-      }}
-    >
+    <Box sx={boxCreatorStyle(456)}>
       <Paper elevation={3}>
         <div className={s.paperContainer}>
           <h1 className={s.title}>Forgot your password?</h1>
@@ -66,10 +58,12 @@ export const PasswordRecovery = () => {
             </div>
             <SuperButton
               style={{
-                marginTop: '66px',
+                borderRadius: '30px',
+                background: '#366EFF',
                 letterSpacing: '0.01em',
                 fontSize: '1.3rem',
                 width: '347px',
+                marginTop: '66px',
               }}
               type="submit"
               disabled={appStatus === 'loading'}

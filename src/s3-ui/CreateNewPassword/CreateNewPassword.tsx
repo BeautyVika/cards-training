@@ -12,6 +12,7 @@ import { PATH } from 'app/Routes/AppRoutes'
 import { useAppDispatch, useAppSelector } from 's1-DAL/store'
 import { createNewPassword } from 's2-BLL/authSlice'
 import { appStatusSelector, isCreateNewPasswordSelector, PasswordInput } from 's4-common'
+import { boxCreatorStyle } from 's4-common/utils/boxCreatorStyle'
 
 type NewPasswordType = {
   password: string
@@ -41,16 +42,7 @@ export const CreateNewPassword = () => {
   }
 
   return (
-    <Box
-      sx={{
-        display: 'flex',
-        flexWrap: 'wrap',
-        m: 1,
-        width: '420px',
-        height: '384px',
-        margin: '50px auto',
-      }}
-    >
+    <Box sx={boxCreatorStyle(384)}>
       <Paper elevation={3}>
         <div className={s.paperContainer}>
           <div className={s.title}>Create new password</div>

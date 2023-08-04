@@ -8,15 +8,20 @@ import AppRoutes from './Routes/AppRoutes'
 
 import { useAppDispatch, useAppSelector } from 's1-DAL/store'
 import { getAuthUserData } from 's2-BLL/authSlice'
-import { LinearProgress } from 's4-common'
+import { appStatusSelector, isInitializedSelector, LinearProgress } from 's4-common'
 
 const App = () => {
-  const isLoading = useAppSelector(state => state.app.status)
+  const isLoading = useAppSelector(appStatusSelector)
+  const isInitialized = useAppSelector(isInitializedSelector)
   const dispatch = useAppDispatch()
 
   useEffect(() => {
     dispatch(getAuthUserData())
   }, [])
+
+  if (!isInitialized) {
+    return <LinearProgress />
+  }
 
   return (
     <div className="App">
