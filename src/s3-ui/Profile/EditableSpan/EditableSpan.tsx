@@ -31,12 +31,13 @@ export const EditableSpan = memo(function (props: EditableSpanPropsType) {
   return editMode ? (
     <div className={s.inputContainer}>
       <TextField
-        sx={{ width: '348px', height: '20px' }}
+        sx={{ width: '300px', height: '20px' }}
         label="Nickmame"
         value={title}
         onChange={changeTitle}
         autoFocus
         onBlur={activateViewMode}
+        variant="standard"
       />
       <IconButton onClick={() => setEditMode(false)}>
         <CheckCircleIcon fontSize="large" color="primary" className={s.icon} />
