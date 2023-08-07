@@ -25,7 +25,7 @@ export const CardsTableBody = () => {
         <TableRow key={card._id} sx={{ '&:last-child td, &:last-child th': { border: 0 } }}>
           <TableCell style={{ width: '100px, height: 25px' }} component="th" scope="row">
             {card.questionImg ? (
-              <img style={{ width: 100, height: 25 }} src={card.questionImg} />
+              <img style={{ width: 57, height: 36 }} src={card.questionImg} alt="cardImg" />
             ) : (
               card.question
             )}

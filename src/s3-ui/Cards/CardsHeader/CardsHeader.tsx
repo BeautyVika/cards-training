@@ -9,11 +9,13 @@ import { EditBar } from '../EditBar/EditBar'
 import s from './CardsHeader.module.scss'
 
 import { PATH } from 'app/Routes/AppRoutes'
+import defaultCover from 'assets/img/defaultCover.svg'
 import { AddNewCardType } from 's1-DAL/cardsAPI'
 import { useAppSelector } from 's1-DAL/store'
 import {
   BackToPacksList,
   cardsTotalCountSelector,
+  packDeckCoverSelector,
   packNameSelector,
   packUserIdSelector,
   SuperButton,
@@ -30,6 +32,7 @@ export const CardsHeader = (props: CardsHeaderType) => {
   const packUserId = useAppSelector(packUserIdSelector)
   const cardsTotalCount = useAppSelector(cardsTotalCountSelector)
   const packName = useAppSelector(packNameSelector)
+  const imgPack = useAppSelector(packDeckCoverSelector)
 
   const navigate = useNavigate()
 
@@ -59,6 +62,12 @@ export const CardsHeader = (props: CardsHeaderType) => {
               packUserId={packUserId}
             />
           )}
+          <img
+            src={imgPack ? imgPack : defaultCover}
+            style={{ width: '80px', height: '40px', marginRight: '10px' }}
+            alt="packImage"
+            className={s.imgPack}
+          />
         </div>
         {userId === packUserId ? (
           <SuperButton

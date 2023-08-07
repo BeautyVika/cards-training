@@ -49,7 +49,7 @@ export const PacksTableBody = (props: PacksTableBodyType) => {
             {appStatus !== 'loading' && (
               <img
                 src={pack.deckCover ? pack.deckCover : defaultCover}
-                style={{ width: '100px', height: '36px', marginRight: '10px' }}
+                style={{ width: '57px', height: '36px', marginRight: '10px' }}
                 onError={errorHandler}
                 alt="packImage"
               />

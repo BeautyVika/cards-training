@@ -40,8 +40,12 @@ export const EditBar = ({
 
   return (
     <ThemeProvider theme={theme}>
-      <IconButton aria-describedby={id} onClick={handleOpen} color={'primary'}>
-        <MoreVertIcon style={{ marginRight: '4px', marginTop: '5px' }} />
+      <IconButton aria-describedby={id} onClick={handleOpen}>
+        <MoreVertIcon
+          style={{ marginRight: '4px', marginTop: '5px' }}
+          fontSize="large"
+          color="primary"
+        />
       </IconButton>
       <Popover
         id={id}

@@ -54,13 +54,14 @@ export const Cards = () => {
   if (cardsPack_id === null) return <Navigate to={PATH.PACKS} />
 
   return (
-    <>
+    <div className={s.block}>
       <CardsHeader onAddNewCard={onAddNewCardHandler} packId={cardsPack_id} />
       <TableContainer component={Paper}>
         <SearchField
           onSearchName={onSearchNameDebounce}
           searchValue={searchValue ?? ''}
           searchParams={searchParams}
+          classname={s.search}
         />
         {cards?.length > 0 ? (
           <Table sx={{ minWidth: 650 }} aria-label="simple table">
@@ -73,6 +74,6 @@ export const Cards = () => {
           </div>
         )}
       </TableContainer>
-    </>
+    </div>
   )
 }

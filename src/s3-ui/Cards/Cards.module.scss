@@ -1,15 +1,24 @@
-.container{
+.block {
+  margin: 36px 40px;
   display: flex;
   flex-direction: column;
-  align-items: center;
-  .message {
-    display: block;
-    font-family: Montserrat, sans-serif;
-    font-weight: 400;
-    font-size: 1rem;
-    line-height: 1.5;
-    margin: 32px auto;
-    color: #000000;
-    opacity: 0.5;
+  .search {
+    margin: 15px 0;
+  }
+  .container{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    .message {
+      display: block;
+      font-family: Montserrat, sans-serif;
+      font-weight: 400;
+      font-size: 1rem;
+      line-height: 1.5;
+      margin: 32px auto;
+      color: #000000;
+      opacity: 0.5;
+    }
   }
 }
+
