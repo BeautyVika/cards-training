@@ -15,9 +15,6 @@ export const CardsTableBody = () => {
   const cards = useAppSelector(cardsSelector)
   const appStatus = useAppSelector(appStatusSelector)
   const userId = useAppSelector(userIdSelector)
-  const onStudyClick = () => {
-    console.log('study')
-  }
 
   return (
     <TableBody>
@@ -45,11 +42,7 @@ export const CardsTableBody = () => {
           </TableCell>
           {card.user_id === userId && (
             <TableCell align="left">
-              {appStatus === 'loading' ? (
-                <Skeleton height={40} />
-              ) : (
-                <ActionsForCards card={card} onStudyClick={onStudyClick} />
-              )}
+              {appStatus === 'loading' ? <Skeleton height={40} /> : <ActionsForCards card={card} />}
             </TableCell>
           )}
         </TableRow>
