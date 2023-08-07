@@ -12,6 +12,7 @@ import { PATH } from 'app/Routes/AppRoutes'
 import defaultCover from 'assets/img/defaultCover.svg'
 import { AddNewCardType } from 's1-DAL/cardsAPI'
 import { useAppSelector } from 's1-DAL/store'
+import { AddCardModall } from 's3-ui/Modals/CardsModals/AddCardModall'
 import {
   BackToPacksList,
   cardsTotalCountSelector,
@@ -94,8 +95,14 @@ export const CardsHeader = (props: CardsHeaderType) => {
           </SuperButton>
         )}
       </div>
+
       <BasicModal handleClose={handleClose} open={open}>
-        <AddCardModal pack_id={props.packId} handleClose={handleClose} />
+        {/*<AddCardModall pack_id={props.packId} onAddNewCard={props.onAddNewCard} />*/}
+        <AddCardModal
+          onAddNewCard={props.onAddNewCard}
+          pack_id={props.packId}
+          handleClose={handleClose}
+        />
       </BasicModal>
     </>
   )

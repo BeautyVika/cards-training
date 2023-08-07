@@ -50,7 +50,7 @@ export const UploadPackImage = ({
         console.error('Error: ', 'Файл слишком большого размера')
         dispatch(setAppError({ error: `File ${file.name} is to large. Should be less then 4 MB` }))
 
-        // alert(`File ${file.name} is to large. Should be less then 4 MB`)
+        // alert(`File ${file.name} is to large. Should be less than 4 MB`)
 
         return false
       }

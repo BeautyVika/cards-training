@@ -9,6 +9,7 @@ import Typography from '@mui/material/Typography'
 import { Controller, useForm } from 'react-hook-form'
 import { useLocation } from 'react-router-dom'
 
+import { AddNewCardType } from 's1-DAL/cardsAPI'
 import { useAppDispatch } from 's1-DAL/store'
 import { addNewCard } from 's2-BLL/cardsSlice'
 import { SuperButton } from 's4-common'
@@ -17,6 +18,7 @@ import { fileToBasePromise } from 's4-common/utils/fileToBasePromise'
 type AddCardModalPropsType = {
   pack_id: string
   handleClose: () => void
+  onAddNewCard: (data: AddNewCardType) => void
 }
 
 export type AddCardType = {
@@ -42,7 +44,6 @@ export const AddCardModal = (props: AddCardModalPropsType) => {
   })
 
   const submitFunc = (data: AddCardType) => {
-    console.log(data)
     dispatch(
       addNewCard(
         { ...data, cardsPack_id: props.pack_id },
