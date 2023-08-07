@@ -12,6 +12,8 @@ import { ActionsForPack } from '../../Actions'
 import { PATH } from 'app/Routes/AppRoutes'
 import { UpdatePackType } from 's1-DAL/packsAPI'
 import { useAppSelector } from 's1-DAL/store'
+import { appStatusSelector } from 's4-common'
+import { packsSelector } from 's4-common/selectors/packsSelectors'
 
 type PacksTableBodyType = {
   onDeletePackHandle: (id: string) => void
@@ -19,8 +21,8 @@ type PacksTableBodyType = {
 }
 
 export const PacksTableBody = (props: PacksTableBodyType) => {
-  const packs = useAppSelector(state => state.packs.packsData.cardPacks)
-  const appStatus = useAppSelector(state => state.app.status)
+  const packs = useAppSelector(packsSelector)
+  const appStatus = useAppSelector(appStatusSelector)
   const navigate = useNavigate()
   const onNameClickHandler = (id: string, cardsCount: number) => {
     navigate(PATH.CARDS + `?cardsPack_id=${id}&pageCount=${cardsCount}`)

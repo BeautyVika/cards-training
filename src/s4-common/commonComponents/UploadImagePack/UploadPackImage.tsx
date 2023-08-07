@@ -4,6 +4,8 @@ import Button from '@mui/material/Button'
 import { UseFormSetValue } from 'react-hook-form'
 
 import defaultCover from 'assets/img/defaultCover.svg'
+import { useAppDispatch } from 's1-DAL/store'
+import { setAppError } from 's2-BLL/appSlice'
 import { convertFileToBase64 } from 's4-common/utils'
 
 type UploadPackImageType = {
@@ -20,6 +22,8 @@ export const UploadPackImage = ({
 }: UploadPackImageType) => {
   const [image, setImage] = useState<string | undefined>(packCover)
 
+  const dispatch = useAppDispatch()
+
   useEffect(() => {
     setImage(packCover)
   }, [])
@@ -31,20 +35,22 @@ export const UploadPackImage = ({
       console.log('file: ', file)
 
       if (!/^image\//.test(file.type)) {
-        alert(`File ${file.name} is not an image.`)
+        dispatch(setAppError({ error: `File ${file.name} is not an image.` }))
 
+        // alert(`File ${file.name} is not an image.`)
         return false
       }
 
       if (file.size < 4000000) {
         convertFileToBase64(file, (file64: string) => {
-          console.log('file64: ', file64)
           setImage(file64)
           setValue('deckCover', file64)
         })
       } else {
         console.error('Error: ', 'Файл слишком большого размера')
-        alert(`File ${file.name} is to large. Should be less then 4 MB`)
+        dispatch(setAppError({ error: `File ${file.name} is to large. Should be less then 4 MB` }))
+
+        // alert(`File ${file.name} is to large. Should be less then 4 MB`)
 
         return false
       }

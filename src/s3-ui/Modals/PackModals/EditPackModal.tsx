@@ -71,10 +71,10 @@ export const EditPackModal = ({
           </Typography>
 
           <Typography sx={{ mt: 2 }} display={'flex'} justifyContent={'space-between'}>
-            <Button variant={'outlined'} onClick={handleClose}>
+            <Button variant={'outlined'} onClick={handleClose} sx={{ width: '85px' }}>
               Cancel
             </Button>
-            <Button variant={'contained'} color={'primary'} type={'submit'}>
+            <Button variant={'contained'} color={'primary'} type={'submit'} sx={{ width: '85px' }}>
               Save
             </Button>
           </Typography>
