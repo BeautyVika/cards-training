@@ -4,12 +4,19 @@ import s from './Question.module.scss'
 
 import { useAppDispatch, useAppSelector } from 's1-DAL/store'
 import { setShowAnswer } from 's2-BLL/learnSlice'
-import { questionSelector, shotsSelector, showAnswerSelector, SuperButton } from 's4-common'
+import {
+  questionImgSelector,
+  questionSelector,
+  shotsSelector,
+  showAnswerSelector,
+  SuperButton,
+} from 's4-common'
 
 export const Question = () => {
   const showAnswer = useAppSelector(showAnswerSelector)
   const question = useAppSelector(questionSelector)
   const shots = useAppSelector(shotsSelector)
+  const questionImg = useAppSelector(questionImgSelector)
 
   const dispatch = useAppDispatch()
 
@@ -21,7 +28,7 @@ export const Question = () => {
     <div className={s.questionContainer}>
       <div className={s.question}>
         <b>Question: </b>
-        {question}
+        {questionImg ? <img alt="img" src={questionImg} style={{ width: '90%' }} /> : question}
       </div>
       <span
         className={s.numberOfAnswer}
