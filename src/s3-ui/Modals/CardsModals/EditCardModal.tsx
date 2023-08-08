@@ -40,6 +40,7 @@ export const EditCardModal = (props: AddCardModalPropsType) => {
   }
 
   const question = props.card.questionImg ? props.card.questionImg : props.card.question
+  const answer = props.card.answerImg ? props.card.questionImg : props.card.answer
 
   const { control, getValues, reset, setValue } = useForm<AddCardType>({
     defaultValues: {

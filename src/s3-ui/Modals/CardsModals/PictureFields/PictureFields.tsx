@@ -2,6 +2,8 @@ import React, { FC } from 'react'
 
 import { UseFormHandleSubmit, UseFormSetValue } from 'react-hook-form'
 
+import s from './PictureFields.module.scss'
+
 import { AddNewCardType } from 's1-DAL/cardsAPI'
 import { ButtonsModals, UploadImage } from 's4-common'
 
@@ -19,13 +21,13 @@ export const PictureFields: FC<PictureFieldsPropsType> = ({
   setValue,
 }) => {
   return (
-    <form onSubmit={handleSubmit(onSubmit)}>
-      <div>
-        <span>Choose an image for the question</span>
+    <form onSubmit={handleSubmit(onSubmit)} className={s.formInput}>
+      <div className={s.container}>
+        <span className={s.title}>Choose an image for the question</span>
         <UploadImage setValue={setValue} buttonName={'Update picture'} name={'questionImg'} />
       </div>
-      <div>
-        <span>Choose an image for the answer</span>
+      <div className={s.container}>
+        <span className={s.title}>Choose an image for the answer</span>
         <UploadImage setValue={setValue} buttonName={'Update picture'} name={'answerImg'} />
       </div>
       <ButtonsModals handleClose={handleClose} name={'Save'} color={'primary'} />

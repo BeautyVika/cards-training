@@ -22,7 +22,7 @@ export const TextFields: FC<TextFieldPropsType> = ({
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
       <TextField
-        sx={{ mt: 2, width: '100%' }}
+        sx={{ width: '100%' }}
         id="question"
         label="Enter question"
         variant="standard"
@@ -30,7 +30,7 @@ export const TextFields: FC<TextFieldPropsType> = ({
         {...register('question')}
       />
       <TextField
-        sx={{ mt: 2, width: '100%' }}
+        sx={{ width: '100%' }}
         id="answer"
         label="Enter answer"
         variant="standard"
