@@ -1,9 +1,8 @@
-import React, { useState } from 'react'
+import React from 'react'
 
 import Typography from '@mui/material/Typography'
 import { useNavigate } from 'react-router-dom'
 
-import { AddCardModal, BasicModal } from '../../Modals'
 import { EditBar } from '../EditBar/EditBar'
 
 import s from './CardsHeader.module.scss'
@@ -12,7 +11,7 @@ import { PATH } from 'app/Routes/AppRoutes'
 import defaultCover from 'assets/img/defaultCover.svg'
 import { AddNewCardType } from 's1-DAL/cardsAPI'
 import { useAppSelector } from 's1-DAL/store'
-import { AddCardModall } from 's3-ui/Modals/CardsModals/AddCardModall'
+import { AddCardModal } from 's3-ui/Modals/CardsModals/AddCardModal'
 import {
   BackToPacksList,
   cardsTotalCountSelector,
@@ -41,14 +40,6 @@ export const CardsHeader = (props: CardsHeaderType) => {
     navigate(`${PATH.LEARN}/${props.packId}`)
   }
 
-  const [open, setOpen] = useState(false)
-  const handleOpen = () => {
-    setOpen(true)
-  }
-  const handleClose = () => {
-    setOpen(false)
-  }
-
   return (
     <>
       <BackToPacksList />
@@ -70,18 +61,7 @@ export const CardsHeader = (props: CardsHeaderType) => {
             className={s.imgPack}
           />
         </div>
-        {userId === packUserId ? (
-          <SuperButton
-            style={{
-              letterSpacing: '0.01em',
-              fontSize: '16px',
-              width: '175px',
-            }}
-            onClick={handleOpen}
-          >
-            Add new card
-          </SuperButton>
-        ) : (
+        {userId !== packUserId ? (
           <SuperButton
             style={{
               letterSpacing: '0.01em',
@@ -93,17 +73,10 @@ export const CardsHeader = (props: CardsHeaderType) => {
           >
             Learn to pack
           </SuperButton>
+        ) : (
+          <AddCardModal onAddNewCard={props.onAddNewCard} />
         )}
       </div>
-
-      <BasicModal handleClose={handleClose} open={open}>
-        {/*<AddCardModall pack_id={props.packId} onAddNewCard={props.onAddNewCard} />*/}
-        <AddCardModal
-          onAddNewCard={props.onAddNewCard}
-          pack_id={props.packId}
-          handleClose={handleClose}
-        />
-      </BasicModal>
     </>
   )
 }

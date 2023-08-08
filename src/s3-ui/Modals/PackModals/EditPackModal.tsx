@@ -1,7 +1,6 @@
 import React, { useState } from 'react'
 
 import BorderColorIcon from '@mui/icons-material/BorderColor'
-import Button from '@mui/material/Button'
 import Checkbox from '@mui/material/Checkbox'
 import IconButton from '@mui/material/IconButton'
 import TextField from '@mui/material/TextField'
@@ -11,7 +10,7 @@ import { SubmitHandler, useForm } from 'react-hook-form'
 import { BasicModal } from '../BasicModal'
 
 import { UpdatePackType } from 's1-DAL/packsAPI'
-import { UploadPackImage } from 's4-common'
+import { ButtonsModals, UploadImage } from 's4-common'
 
 type AddPackModalType = {
   onEditHandle: (data: UpdatePackType) => void
@@ -55,7 +54,12 @@ export const EditPackModal = ({
           EDIT PACK
         </Typography>
         <form onSubmit={handleSubmit(onSubmit)}>
-          <UploadPackImage buttonName={'Update cover'} setValue={setValue} packCover={packCover} />
+          <UploadImage
+            buttonName={'Update cover'}
+            setValue={setValue}
+            packCover={packCover}
+            name={'deckCover'}
+          />
           <TextField
             sx={{ mt: 2, width: '100%' }}
             id="pack-name"
@@ -70,14 +74,7 @@ export const EditPackModal = ({
             Private pack
           </Typography>
 
-          <Typography sx={{ mt: 2 }} display={'flex'} justifyContent={'space-between'}>
-            <Button variant={'outlined'} onClick={handleClose} sx={{ width: '85px' }}>
-              Cancel
-            </Button>
-            <Button variant={'contained'} color={'primary'} type={'submit'} sx={{ width: '85px' }}>
-              Save
-            </Button>
-          </Typography>
+          <ButtonsModals handleClose={handleClose} name={'Save'} color={'primary'} />
         </form>
       </BasicModal>
     </>

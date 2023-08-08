@@ -15,23 +15,27 @@ export const CardsTableBody = () => {
   const cards = useAppSelector(cardsSelector)
   const appStatus = useAppSelector(appStatusSelector)
   const userId = useAppSelector(userIdSelector)
-  const onStudyClick = () => {
-    console.log('study')
-  }
 
   return (
     <TableBody>
       {cards?.map(card => (
         <TableRow key={card._id} sx={{ '&:last-child td, &:last-child th': { border: 0 } }}>
           <TableCell style={{ width: '100px, height: 25px' }} component="th" scope="row">
-            {card.questionImg ? (
+            {appStatus !== 'loading' && card.questionImg ? (
               <img style={{ width: 57, height: 36 }} src={card.questionImg} alt="cardImg" />
             ) : (
-              card.question
+              appStatus !== 'loading' && card.question
             )}
+            {appStatus === 'loading' && <Skeleton height={40} />}
           </TableCell>
           <TableCell align="left">
-            {appStatus === 'loading' ? <Skeleton height={40} /> : card.answer}
+            {appStatus !== 'loading' && card.questionImg ? (
+              <img style={{ width: 57, height: 36 }} src={card.answerImg} alt="cardImg" />
+            ) : (
+              appStatus !== 'loading' && card.answer
+            )}
+            {appStatus === 'loading' && <Skeleton height={40} />}
+            {/*{appStatus === 'loading' ? <Skeleton height={40} /> : card.answer}*/}
           </TableCell>
           <TableCell align="left">
             {appStatus === 'loading' ? <Skeleton height={40} /> : card.updated.substring(0, 10)}
@@ -45,11 +49,7 @@ export const CardsTableBody = () => {
           </TableCell>
           {card.user_id === userId && (
             <TableCell align="left">
-              {appStatus === 'loading' ? (
-                <Skeleton height={40} />
-              ) : (
-                <ActionsForCards card={card} onStudyClick={onStudyClick} />
-              )}
+              {appStatus === 'loading' ? <Skeleton height={40} /> : <ActionsForCards card={card} />}
             </TableCell>
           )}
         </TableRow>

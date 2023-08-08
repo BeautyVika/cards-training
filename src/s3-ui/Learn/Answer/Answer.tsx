@@ -10,12 +10,19 @@ import s from './Answer.module.scss'
 import { useAppDispatch, useAppSelector } from 's1-DAL/store'
 import { updateCardGrade } from 's2-BLL/cardsSlice'
 import { setGrade } from 's2-BLL/learnSlice'
-import { answerSelector, card_idSelector, gradeSelector, SuperButton } from 's4-common'
+import {
+  answerImgSelector,
+  answerSelector,
+  card_idSelector,
+  gradeSelector,
+  SuperButton,
+} from 's4-common'
 
 export const Answer = () => {
   const answer = useAppSelector(answerSelector)
   const grade = useAppSelector(gradeSelector)
   const card_id = useAppSelector(card_idSelector)
+  const answerImg = useAppSelector(answerImgSelector)
   const dispatch = useAppDispatch()
   const grades = ['Did not know', 'Forgot', 'A lot of thought', 'Confused', 'Knew the answer']
 
@@ -34,7 +41,7 @@ export const Answer = () => {
     <div className={s.answerContainer}>
       <div className={s.answer}>
         <b>Answer: </b>
-        {answer}
+        {answerImg ? <img alt="img" src={answerImg} style={{ width: '90%' }} /> : answer}
       </div>
       <FormControl>
         <span className={s.title}>Rate yourself:</span>

@@ -99,7 +99,7 @@ export const ActionsForPack = ({
           <DeletePackModal
             packId={packId}
             packName={packName}
-            onDeleteHandle={onDeletePackHandle}
+            onDelete={onDeletePackHandle}
             hasText={props.hasText}
           />
         )}

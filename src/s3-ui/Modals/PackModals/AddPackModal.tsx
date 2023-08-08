@@ -1,6 +1,5 @@
 import React, { useState } from 'react'
 
-import Button from '@mui/material/Button'
 import Checkbox from '@mui/material/Checkbox'
 import TextField from '@mui/material/TextField'
 import Typography from '@mui/material/Typography'
@@ -10,7 +9,7 @@ import { BasicModal } from '../BasicModal'
 
 import { AddNewPackType } from 's1-DAL/packsAPI'
 import { useAppSelector } from 's1-DAL/store'
-import { SuperButton, UploadPackImage } from 's4-common'
+import { ButtonsModals, SuperButton, UploadImage } from 's4-common'
 
 type AddPackModalPropsType = {
   onAddHandle: (data: AddNewPackType) => void
@@ -52,7 +51,7 @@ export const AddPackModal = ({ onAddHandle, ...props }: AddPackModalPropsType) =
           ADD NEW PACK
         </Typography>
         <form onSubmit={handleSubmit(onSubmit)}>
-          <UploadPackImage setValue={setValue} buttonName={'Update cover picture'} />
+          <UploadImage setValue={setValue} buttonName={'Update cover picture'} name={'deckCover'} />
           <TextField
             sx={{ mt: 2, width: '100%' }}
             id="pack-name"
@@ -66,14 +65,7 @@ export const AddPackModal = ({ onAddHandle, ...props }: AddPackModalPropsType) =
             Private pack
           </Typography>
 
-          <Typography sx={{ mt: 2 }} display={'flex'} justifyContent={'space-between'}>
-            <Button variant={'outlined'} onClick={handleClose} sx={{ width: '85px' }}>
-              Cancel
-            </Button>
-            <Button variant={'contained'} color={'primary'} type={'submit'} sx={{ width: '85px' }}>
-              Save
-            </Button>
-          </Typography>
+          <ButtonsModals handleClose={handleClose} name={'Save'} color={'primary'} />
         </form>
       </BasicModal>
     </div>

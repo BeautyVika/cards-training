@@ -14,25 +14,30 @@ import { PATH } from 'app/Routes/AppRoutes'
 import { AddNewCardType } from 's1-DAL/cardsAPI'
 import { useAppDispatch, useAppSelector } from 's1-DAL/store'
 import { addNewCard, getCards } from 's2-BLL/cardsSlice'
-import { cardsSelector, isLoggedInSelector, SearchField } from 's4-common'
+import { SuperPagination } from 's3-ui/Pagination/Pagination'
+import { cardsSelector, cardsTotalCountSelector, isLoggedInSelector, SearchField } from 's4-common'
 
 export const Cards = () => {
   const cards = useAppSelector(cardsSelector)
-  const dispatch = useAppDispatch()
+  const cardsTotalCount = useAppSelector(cardsTotalCountSelector)
   const isLoggedIn = useAppSelector(isLoggedInSelector)
+
+  const dispatch = useAppDispatch()
   //set params into URL
   const [searchParams, setSearchParams] = useSearchParams()
   //get Single Params From URL
   const searchValue = searchParams.get('cardQuestion')
   const sortCards = searchParams.get('sortCards')
   const cardsPack_id = searchParams.get('cardsPack_id')
+  const rows = Number(searchParams.get('pageCount'))
+  const pageNumber = Number(searchParams.get('page'))
   //to get params from URL after Question Mark
   const { search } = useLocation()
+
   const paramsFromUrl = Object.fromEntries(new URLSearchParams(search))
 
   useEffect(() => {
     if (!isLoggedIn) return
-
     dispatch(getCards({ ...paramsFromUrl, cardsPack_id: cardsPack_id }))
   }, [searchParams, isLoggedIn])
 
@@ -44,6 +49,14 @@ export const Cards = () => {
     setSearchParams({
       ...paramsFromUrl,
       sortCards,
+    })
+  }
+
+  const setRowsAndPage = (rowsPerPage: number, pageNumber: number) => {
+    setSearchParams({
+      ...paramsFromUrl,
+      pageCount: rowsPerPage.toString(),
+      page: pageNumber.toString(),
     })
   }
 
@@ -74,6 +87,13 @@ export const Cards = () => {
           </div>
         )}
       </TableContainer>
+      <SuperPagination
+        paginationTitle={'Cards per Page'}
+        setRowsAndPage={setRowsAndPage}
+        totalCount={cardsTotalCount ?? 0}
+        rows={rows === 0 ? 4 : rows}
+        page={pageNumber === 0 ? 0 : pageNumber - 1}
+      />
     </div>
   )
 }

@@ -8,7 +8,7 @@ import { BasicModal, DeleteCardModal, EditCardModal } from '../Modals'
 import { CardType } from 's1-DAL/cardsAPI'
 
 type ActionsPropsType = {
-  onStudyClick: (id: string) => void
+  onStudyClick?: (id: string) => void
   card: CardType
 }
 

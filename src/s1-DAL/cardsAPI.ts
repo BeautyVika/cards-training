@@ -53,6 +53,7 @@ export type CardType = {
   answer: string
   question: string
   questionImg: string
+  answerImg: string
   cardsPack_id: string | null
   grade: number
   shots: number
