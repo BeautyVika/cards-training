@@ -5,8 +5,7 @@
   margin-top: 20px;
   .container {
     display: flex;
-    justify-content: space-between;
-    align-items: center;
+    flex-direction: column;
     margin-top: 20px;
     .title{
       font-size: 14px;
