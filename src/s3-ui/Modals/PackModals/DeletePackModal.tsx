@@ -1,28 +1,28 @@
 import React, { useState } from 'react'
 
 import DeleteSweepIcon from '@mui/icons-material/DeleteSweep'
-import Button from '@mui/material/Button'
 import IconButton from '@mui/material/IconButton'
 import Typography from '@mui/material/Typography'
 
 import { BasicModal } from '../BasicModal'
 
+import { ButtonsModals } from 's4-common'
+
 type DeletePackModalType = {
   packId: string
   packName: string
-  onDeleteHandle: (id: string) => void
+  onDelete: (id: string) => void
   hasText?: boolean
 }
 
-export const DeletePackModal = ({
-  packId,
-  packName,
-  onDeleteHandle,
-  ...props
-}: DeletePackModalType) => {
+export const DeletePackModal = ({ packId, packName, onDelete, ...props }: DeletePackModalType) => {
   const [open, setOpen] = useState(false)
   const handleOpen = () => setOpen(true)
   const handleClose = () => setOpen(false)
+
+  const onDeleteHandler = () => {
+    onDelete(packId)
+  }
 
   return (
     <>
@@ -39,14 +39,12 @@ export const DeletePackModal = ({
           <br />
           All cards will be deleted
         </Typography>
-        <Typography sx={{ mt: 2 }} display={'flex'} justifyContent={'space-between'}>
-          <Button variant={'outlined'} onClick={handleClose}>
-            Cancel
-          </Button>
-          <Button variant={'contained'} color={'error'} onClick={() => onDeleteHandle(packId)}>
-            Delete
-          </Button>
-        </Typography>
+        <ButtonsModals
+          handleClose={handleClose}
+          name={'Delete'}
+          onClickHandler={onDeleteHandler}
+          color={'error'}
+        />
       </BasicModal>
     </>
   )

@@ -12,12 +12,14 @@ type UploadPackImageType = {
   buttonName: string
   packCover?: string
   setValue: UseFormSetValue<any>
+  name: string
 }
 
-export const UploadPackImage = ({
+export const UploadImage = ({
   buttonName,
   packCover,
   setValue,
+  name,
   ...props
 }: UploadPackImageType) => {
   const [image, setImage] = useState<string | undefined>(packCover)
@@ -32,10 +34,8 @@ export const UploadPackImage = ({
     if (e.target.files && e.target.files.length) {
       const file = e.target.files[0]
 
-      console.log('file: ', file)
-
       if (!/^image\//.test(file.type)) {
-        dispatch(setAppError({ error: `File ${file.name} is not an image.` }))
+        dispatch(setAppError({ error: `File is not an image.` }))
 
         // alert(`File ${file.name} is not an image.`)
         return false
@@ -44,11 +44,10 @@ export const UploadPackImage = ({
       if (file.size < 4000000) {
         convertFileToBase64(file, (file64: string) => {
           setImage(file64)
-          setValue('deckCover', file64)
+          setValue(`${name}`, file64)
         })
       } else {
-        console.error('Error: ', 'Файл слишком большого размера')
-        dispatch(setAppError({ error: `File ${file.name} is to large. Should be less then 4 MB` }))
+        dispatch(setAppError({ error: `File is to large. Should be less then 4 MB` }))
 
         // alert(`File ${file.name} is to large. Should be less than 4 MB`)
 
@@ -71,7 +70,7 @@ export const UploadPackImage = ({
         <input
           type="file"
           accept="image/*"
-          id="deckCover"
+          id={name}
           style={{ display: 'none' }}
           onChange={imageUploadHandler}
         />
@@ -82,9 +81,9 @@ export const UploadPackImage = ({
       {image && (
         <img
           src={image}
-          style={{ width: '100%', height: '150px', margin: '10px' }}
+          style={{ width: '100%', height: '150px', marginTop: '10px' }}
           onError={errorHandler}
-          alt="packImage"
+          alt="image"
         />
       )}
     </>

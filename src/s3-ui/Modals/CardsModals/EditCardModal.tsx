@@ -1,196 +1,100 @@
-import React from 'react'
+import React, { FC, useState } from 'react'
 
-import CloseIcon from '@mui/icons-material/Close'
-import Button from '@mui/material/Button'
-import MenuItem from '@mui/material/MenuItem'
-import Select from '@mui/material/Select'
+import BorderColorIcon from '@mui/icons-material/BorderColor'
+import IconButton from '@mui/material/IconButton'
 import TextField from '@mui/material/TextField'
 import Typography from '@mui/material/Typography'
-import { Controller, useForm } from 'react-hook-form'
-import { useLocation } from 'react-router-dom'
+import { SubmitHandler, useForm } from 'react-hook-form'
 
-import { CardType } from 's1-DAL/cardsAPI'
-import { useAppDispatch } from 's1-DAL/store'
-import { updateCard } from 's2-BLL/cardsSlice'
-import { SuperButton } from 's4-common'
-import { fileToBasePromise } from 's4-common/utils/fileToBasePromise'
+import { BasicModal } from '../BasicModal'
 
-type AddCardModalPropsType = {
-  card: CardType
-  handleClose: () => void
-}
+import { UpdateCardType } from 's1-DAL/cardsAPI'
+import { UpdatePackType } from 's1-DAL/packsAPI'
+import { ButtonsModals, UploadImage } from 's4-common'
 
-export type AddCardType = {
-  selectValue: string
+type EditCardModalPropsType = {
+  cardId: string
+  cardQuestionImg: string | undefined
+  cardAnswerImg: string | undefined
   question: string
   answer: string
-  questionImg: string
+  onEditHandle: (data: UpdateCardType) => void
 }
 
-const options = ['Text', 'Image']
+export const EditCardModal: FC<EditCardModalPropsType> = ({
+  cardId,
+  cardQuestionImg,
+  cardAnswerImg,
+  question,
+  answer,
+  onEditHandle,
+}) => {
+  const [open, setOpen] = useState(false)
 
-export const EditCardModal = (props: AddCardModalPropsType) => {
-  const dispatch = useAppDispatch()
-  const { search } = useLocation()
-  const paramsFromUrl = Object.fromEntries(new URLSearchParams(search))
-
-  const handleOpen = () => {
-    submitFunc(getValues())
-    props.handleClose()
+  const handleOpen = () => setOpen(true)
+  const handleClose = () => {
+    setOpen(false)
+    reset()
   }
 
-  const question = props.card.questionImg ? props.card.questionImg : props.card.question
+  const { register, handleSubmit, reset, setValue } = useForm<UpdateCardType>()
 
-  const { control, getValues, reset, setValue } = useForm<AddCardType>({
-    defaultValues: {
-      selectValue: options[0],
-      question: question,
-      answer: props.card.answer,
-      questionImg: '',
-    },
-  })
-
-  const submitFunc = (data: AddCardType) => {
-    dispatch(
-      updateCard(
-        {
-          ...props.card,
-          answer: data.answer,
-          question: data.question,
-          questionImg: data.questionImg,
-        },
-        { cardsPack_id: props.card.cardsPack_id, ...paramsFromUrl }
-      )
-    )
-    reset({ selectValue: options[0], question: '', answer: '' })
-  }
-
-  const uploadHandler = (files: FileList | null) => {
-    if (files && files.length) {
-      fileToBasePromise(files[0]).then(res => {
-        setValue('questionImg', res as string)
-      })
-    }
+  const onSubmit: SubmitHandler<UpdatePackType> = (data: UpdateCardType) => {
+    onEditHandle({ ...data, _id: cardId })
+    handleClose()
   }
 
   return (
-    <div
-      style={{
-        width: '400px',
-        height: '400px',
-        display: 'flex',
-        justifyContent: 'space-between',
-        flexDirection: 'column',
-        alignItems: 'center',
-      }}
-    >
-      <div
-        style={{
-          display: 'flex',
-          justifyContent: 'space-between',
-          width: '347px',
-        }}
-      >
+    <>
+      <IconButton color={'secondary'} onClick={handleOpen}>
+        <BorderColorIcon style={{ marginRight: '4px' }} />
+      </IconButton>
+
+      <BasicModal open={open} handleClose={handleClose}>
         <Typography variant="h5" component="h2">
-          Edit card
+          EDIT CARD
         </Typography>
-        <CloseIcon onClick={props.handleClose} />
-      </div>
+        {cardQuestionImg ? (
+          <form onSubmit={handleSubmit(onSubmit)}>
+            <UploadImage
+              buttonName={'Update cover'}
+              setValue={setValue}
+              packCover={cardQuestionImg}
+              name={'questionImg'}
+            />
+            <UploadImage
+              buttonName={'Update cover'}
+              setValue={setValue}
+              packCover={cardAnswerImg}
+              name={'answerImg'}
+            />
+            <ButtonsModals handleClose={handleClose} name={'Save'} color={'primary'} />
+          </form>
+        ) : (
+          <form onSubmit={handleSubmit(onSubmit)}>
+            <TextField
+              sx={{ mt: 2, width: '100%' }}
+              id="question"
+              label="Edit question"
+              variant="standard"
+              margin="normal"
+              defaultValue={question}
+              {...register('question')}
+            />
+            <TextField
+              sx={{ mt: 2, width: '100%' }}
+              id="answer"
+              label="Edit answer"
+              variant="standard"
+              margin="normal"
+              defaultValue={answer}
+              {...register('answer')}
+            />
 
-      <div
-        style={{
-          height: '190px',
-          width: '347px',
-          display: 'flex',
-          justifyContent: 'space-between',
-          flexDirection: 'column',
-        }}
-      >
-        {question.length < 30 ? (
-          <div>
-            <Controller
-              render={({ field }) => (
-                <Select sx={{ width: '100%', height: '36px' }} {...field}>
-                  {options.map((option, index) => (
-                    <MenuItem key={index} sx={{ width: '347px', height: '36px' }} value={option}>
-                      {option}
-                    </MenuItem>
-                  ))}
-                </Select>
-              )}
-              name="selectValue"
-              control={control}
-            />
-          </div>
-        ) : null}
-
-        <div>
-          <div>Question</div>
-          <div>
-            <Controller
-              control={control}
-              name="question"
-              render={({ field: { onChange, value } }) => (
-                <div>
-                  {value.length > 30 ? (
-                    <img style={{ width: 345, height: 100 }} src={value} alt="image" />
-                  ) : (
-                    <TextField
-                      style={{ width: '100%' }}
-                      variant="standard"
-                      onChange={onChange}
-                      value={value}
-                    />
-                  )}
-                </div>
-              )}
-            />
-          </div>
-          <div>
-            <Controller
-              control={control}
-              name="question"
-              render={({ field: { onChange } }) => (
-                <label>
-                  <input
-                    type="file"
-                    onChange={event => {
-                      return uploadHandler(event.target.files)
-                    }}
-                    style={{ display: 'none' }}
-                    accept="image/png, image/jpeg, image/svg"
-                  />
-                  <Button
-                    style={{ marginTop: '10px', display: 'flex', justifyContent: 'center' }}
-                    variant="text"
-                    component="span"
-                  >
-                    Update picture
-                  </Button>
-                </label>
-              )}
-            />
-          </div>
-        </div>
-        <div>
-          <div>Answer</div>
-          <div>
-            <Controller
-              control={control}
-              name="answer"
-              render={({ field: { onChange, value } }) => (
-                <TextField
-                  style={{ width: '100%' }}
-                  variant="standard"
-                  onChange={onChange}
-                  value={value}
-                />
-              )}
-            />
-          </div>
-        </div>
-      </div>
-      <SuperButton onClick={handleOpen}>Edit card</SuperButton>
-    </div>
+            <ButtonsModals handleClose={handleClose} name={'Save'} color={'primary'} />
+          </form>
+        )}
+      </BasicModal>
+    </>
   )
 }
