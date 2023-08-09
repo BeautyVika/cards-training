@@ -12,6 +12,7 @@ type PictureFieldsPropsType = {
   handleSubmit: UseFormHandleSubmit<AddNewCardType>
   handleClose: () => void
   setValue: UseFormSetValue<any>
+  packCover?: string
 }
 
 export const PictureFields: FC<PictureFieldsPropsType> = ({

@@ -45,14 +45,6 @@ export const DeletePackModal = ({ packId, packName, onDelete, ...props }: Delete
           onClickHandler={onDeleteHandler}
           color={'error'}
         />
-        {/*<Typography sx={{ mt: 2 }} display={'flex'} justifyContent={'space-between'}>*/}
-        {/*  <Button variant={'outlined'} onClick={handleClose}>*/}
-        {/*    Cancel*/}
-        {/*  </Button>*/}
-        {/*  <Button variant={'contained'} color={'error'} onClick={onDeleteHandler}>*/}
-        {/*    Delete*/}
-        {/*  </Button>*/}
-        {/*</Typography>*/}
       </BasicModal>
     </>
   )

@@ -1,59 +1,69 @@
-import React from 'react'
+import React, { FC, useState } from 'react'
 
-import { useLocation } from 'react-router-dom'
+import DeleteSweepIcon from '@mui/icons-material/DeleteSweep'
+import IconButton from '@mui/material/IconButton'
+import Typography from '@mui/material/Typography'
 
-import { CardType } from 's1-DAL/cardsAPI'
-import { useAppDispatch } from 's1-DAL/store'
-import { deleteCard } from 's2-BLL/cardsSlice'
-import { SuperButton } from 's4-common'
+import { BasicModal } from 's3-ui/Modals/BasicModal'
+import { ButtonsModals } from 's4-common'
 
-type AddCardModalPropsType = {
-  card: CardType
-  handleClose: () => void
+type DeleteCardModalType = {
+  cardId: string
+  cardQuestionImg: string | undefined
+  question: string
+  onDelete: (id: string) => void
 }
 
-export const DeleteCardModal = (props: AddCardModalPropsType) => {
-  const dispatch = useAppDispatch()
-  const { search } = useLocation()
-  const paramsFromUrl = Object.fromEntries(new URLSearchParams(search))
-  const onButtonClickHandler = () => {
-    dispatch(
-      deleteCard(props.card._id, { cardsPack_id: props.card.cardsPack_id, ...paramsFromUrl })
-    )
-    props.handleClose()
+export const DeleteCardModal: FC<DeleteCardModalType> = ({
+  cardId,
+  cardQuestionImg,
+  question,
+  onDelete,
+}) => {
+  const [open, setOpen] = useState(false)
+  const handleOpen = () => setOpen(true)
+  const handleClose = () => setOpen(false)
+
+  const onDeleteHandler = () => {
+    onDelete(cardId)
   }
 
   return (
-    <div
-      style={{
-        height: '240px',
-        display: 'flex',
-        flexDirection: 'column',
-        justifyContent: 'space-between',
-      }}
-    >
-      <div
-        style={{
-          fontFamily: 'Montserrat',
-          fontWeight: '500',
-          fontSize: '22px',
-          lineHeight: '22px',
-        }}
-      >
-        Delete Card
-      </div>
-      <div>
-        <div style={{ marginBottom: '3px' }}>
-          Do you really want to remove <b>{props.card.question}</b> ?
-        </div>
-        <div>Card will be deleted</div>
-      </div>
-      <SuperButton
-        onClick={onButtonClickHandler}
-        style={{ alignSelf: 'center', width: '200px', backgroundColor: 'red' }}
-      >
-        Delete card
-      </SuperButton>
-    </div>
+    <>
+      <IconButton color={'secondary'} onClick={handleOpen}>
+        <DeleteSweepIcon style={{ marginRight: '4px' }} />
+      </IconButton>
+      <BasicModal open={open} handleClose={handleClose}>
+        <Typography variant="h5" component="h2">
+          DELETE CARD
+        </Typography>
+        {cardQuestionImg ? (
+          <Typography sx={{ mt: 2 }}>
+            Do you really want to remove?{' '}
+            <b>
+              <img
+                src={cardQuestionImg}
+                alt="cardImg"
+                style={{ width: '100%', height: '150px', marginTop: '10px' }}
+              />
+            </b>
+            <br />
+            Card will be deleted
+          </Typography>
+        ) : (
+          <Typography sx={{ mt: 2 }}>
+            Do you really want to remove <b>{question}</b>?
+            <br />
+            Card will be deleted
+          </Typography>
+        )}
+        <ButtonsModals
+          handleClose={handleClose}
+          name={'Delete'}
+          onClickHandler={onDeleteHandler}
+          color={'error'}
+        />
+      </BasicModal>
+    </>
   )
 }

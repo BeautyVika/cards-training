@@ -81,7 +81,7 @@ export const UploadImage = ({
       {image && (
         <img
           src={image}
-          style={{ width: '100%', height: '150px', margin: '10px' }}
+          style={{ width: '100%', height: '150px', marginTop: '10px' }}
           onError={errorHandler}
           alt="image"
         />
