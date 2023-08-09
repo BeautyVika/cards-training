@@ -1,5 +1,4 @@
 import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit'
-import { Dispatch } from 'redux'
 
 import { setAppError, setAppStatus, setIsInitializedAC } from './appSlice'
 
@@ -56,8 +55,7 @@ export const {
   setIsSendedEmailAC,
 } = slice.actions
 
-//thunk creators
-export const getAuthUserData = () => async (dispatch: Dispatch) => {
+export const getAuthUserData = createAsyncThunk('auth/me', async (_, { dispatch }) => {
   dispatch(setAppStatus({ status: 'loading' }))
   try {
     const result = await authAPI.authMe()
@@ -73,43 +71,54 @@ export const getAuthUserData = () => async (dispatch: Dispatch) => {
   } finally {
     dispatch(setIsInitializedAC({ value: true }))
   }
-}
-export const changeProfileName = (name: string) => async (dispatch: Dispatch) => {
-  dispatch(setAppStatus({ status: 'loading' }))
+})
 
-  try {
-    const result = await authAPI.changeName(name)
+export const changeProfileName = createAsyncThunk(
+  'auth/changeProfileName',
+  async (name: string, { dispatch }) => {
+    dispatch(setAppStatus({ status: 'loading' }))
 
-    dispatch(changeName({ name }))
-    dispatch(setAppStatus({ status: 'succeeded' }))
-  } catch (e: any) {
-    errorUtils(dispatch, e)
+    try {
+      const result = await authAPI.changeName(name)
+
+      dispatch(changeName({ name }))
+      dispatch(setAppStatus({ status: 'succeeded' }))
+    } catch (e: any) {
+      errorUtils(dispatch, e)
+    }
   }
-}
-export const changeProfileImage = (avatar: string) => async (dispatch: Dispatch) => {
-  dispatch(setAppStatus({ status: 'loading' }))
-  try {
-    const result = await authAPI.changeImage(avatar)
+)
 
-    dispatch(changeAvatar({ avatar }))
-    dispatch(setAppStatus({ status: 'succeeded' }))
-  } catch (e: any) {
-    errorUtils(dispatch, e)
+export const changeProfileImage = createAsyncThunk(
+  'auth/changeProfileImage',
+  async (avatar: string, { dispatch }) => {
+    dispatch(setAppStatus({ status: 'loading' }))
+    try {
+      const result = await authAPI.changeImage(avatar)
+
+      dispatch(changeAvatar({ avatar }))
+      dispatch(setAppStatus({ status: 'succeeded' }))
+    } catch (e: any) {
+      errorUtils(dispatch, e)
+    }
   }
-}
+)
 
-export const getNewToken = (email: string) => async (dispatch: Dispatch) => {
-  dispatch(setAppStatus({ status: 'loading' }))
-  try {
-    await authAPI.getToken(email)
-    dispatch(setIsSendedEmailAC({ value: true }))
-    dispatch(setAppStatus({ status: 'succeeded' }))
-  } catch (e: any) {
-    errorUtils(dispatch, e)
+export const getNewToken = createAsyncThunk(
+  'auth/getNewToken',
+  async (email: string, { dispatch }) => {
+    dispatch(setAppStatus({ status: 'loading' }))
+    try {
+      await authAPI.getToken(email)
+      dispatch(setIsSendedEmailAC({ value: true }))
+      dispatch(setAppStatus({ status: 'succeeded' }))
+    } catch (e: any) {
+      errorUtils(dispatch, e)
+    }
   }
-}
+)
 
-export const loginTC = (data: LoginType) => async (dispatch: Dispatch) => {
+export const loginTC = createAsyncThunk('auth/login', async (data: LoginType, { dispatch }) => {
   dispatch(setAppStatus({ status: 'loading' }))
   try {
     const response = await authAPI.login(data)
@@ -120,9 +129,9 @@ export const loginTC = (data: LoginType) => async (dispatch: Dispatch) => {
   } catch (e: any) {
     errorUtils(dispatch, e)
   }
-}
+})
 
-export const logOutTC = () => async (dispatch: Dispatch) => {
+export const logOutTC = createAsyncThunk('auth/logout', async (_, { dispatch }) => {
   dispatch(setAppStatus({ status: 'loading' }))
   try {
     const result = await authAPI.logout()
@@ -135,18 +144,22 @@ export const logOutTC = () => async (dispatch: Dispatch) => {
     dispatch(setAppError(e.response.data.error))
     dispatch(setAppStatus({ status: 'idle' }))
   }
-}
-export const createNewPassword = (data: NewPasswordType) => async (dispatch: Dispatch) => {
-  dispatch(setAppStatus({ status: 'loading' }))
-  try {
-    await authAPI.createNewPassword(data)
-    dispatch(createNewPasswordAC({ value: true }))
+})
 
-    dispatch(setAppStatus({ status: 'succeeded' }))
-  } catch (e: any) {
-    errorUtils(dispatch, e)
+export const createNewPassword = createAsyncThunk(
+  'auth/createNewPassword',
+  async (data: NewPasswordType, { dispatch }) => {
+    dispatch(setAppStatus({ status: 'loading' }))
+    try {
+      await authAPI.createNewPassword(data)
+      dispatch(createNewPasswordAC({ value: true }))
+
+      dispatch(setAppStatus({ status: 'succeeded' }))
+    } catch (e: any) {
+      errorUtils(dispatch, e)
+    }
   }
-}
+)
 
 export const registrationThunk = createAsyncThunk(
   'registration',
