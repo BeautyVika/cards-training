@@ -1,6 +1,6 @@
 {
   "files": {
-    "main.css": "/cards-training/static/css/main.d976a601.css",
+    "main.css": "/cards-training/static/css/main.a981d669.css",
     "main.js": "/cards-training/static/js/main.b4a1eb96.js",
     "static/media/defaultAvatar.svg": "/cards-training/static/media/defaultAvatar.8b60d1fae0671cc82efc16174858714d.svg",
     "static/media/404.svg": "/cards-training/static/media/404.dae7af4892f2a3abe805a174178919f2.svg",
@@ -9,11 +9,11 @@
     "static/media/defaultCover.svg": "/cards-training/static/media/defaultCover.71e02a724700a9270e72298985ff7e5f.svg",
     "index.html": "/cards-training/index.html",
     "static/media/logout.svg": "/cards-training/static/media/logout.6aacae96c673ca973607f9c893793b02.svg",
-    "main.d976a601.css.map": "/cards-training/static/css/main.d976a601.css.map",
+    "main.a981d669.css.map": "/cards-training/static/css/main.a981d669.css.map",
     "main.b4a1eb96.js.map": "/cards-training/static/js/main.b4a1eb96.js.map"
   },
   "entrypoints": [
-    "static/css/main.d976a601.css",
+    "static/css/main.a981d669.css",
     "static/js/main.b4a1eb96.js"
   ]
 }
