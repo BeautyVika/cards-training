@@ -1,4 +1,4 @@
-import React, { SyntheticEvent } from 'react'
+import React, { FC, SyntheticEvent } from 'react'
 
 import { Skeleton } from '@mui/material'
 import TableBody from '@mui/material/TableBody'
@@ -14,13 +14,13 @@ import { UpdatePackType } from 's1-DAL/packsAPI'
 import { useAppSelector } from 's1-DAL/store'
 import { appStatusSelector } from 's4-common'
 import { packsSelector } from 's4-common/selectors/packsSelectors'
+//
+// type PacksTableBodyType = {
+//   // onDeletePackHandle: (id: string) => void
+//   onEditPackHandle: (data: UpdatePackType) => void
+// }
 
-type PacksTableBodyType = {
-  onDeletePackHandle: (id: string) => void
-  onEditPackHandle: (data: UpdatePackType) => void
-}
-
-export const PacksTableBody = (props: PacksTableBodyType) => {
+export const PacksTableBody: FC = () => {
   const packs = useAppSelector(packsSelector)
   const appStatus = useAppSelector(appStatusSelector)
   const navigate = useNavigate()

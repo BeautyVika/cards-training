@@ -1,4 +1,4 @@
-import { createSlice, PayloadAction } from '@reduxjs/toolkit'
+import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit'
 
 import { setAppStatus } from './appSlice'
 
@@ -45,8 +45,9 @@ export const { setPacks, setPacksTotalCount, setMinPacksCount, setMaxCardsCount 
 export const packReducer = packSlice.reducer
 
 //Thunk creators
-export const getPacks =
-  (attributes: GetPacksType) => async (dispatch: AppDispatch, getState: () => RootState) => {
+export const getPacks = createAsyncThunk(
+  'pack/getPacks',
+  async (attributes: GetPacksType, { dispatch }) => {
     dispatch(setAppStatus({ status: 'loading' }))
 
     try {
@@ -61,44 +62,101 @@ export const getPacks =
       errorUtils(dispatch, e)
     }
   }
-
-export const addNewPack =
-  (data: AddNewPackType, attributes: GetPacksType) => async (dispatch: AppDispatch) => {
+)
+// export const getPacks =
+//   (attributes: GetPacksType) => async (dispatch: AppDispatch, getState: () => RootState) => {
+//     dispatch(setAppStatus({ status: 'loading' }))
+//
+//     try {
+//       const result = await packsAPI.getAllPacks(attributes)
+//
+//       dispatch(setPacks({ packsData: result.data }))
+//       dispatch(setMinPacksCount({ value: result.data.minCardsCount }))
+//       dispatch(setMaxCardsCount({ value: result.data.maxCardsCount }))
+//       dispatch(setPacksTotalCount({ value: result.data.cardPacksTotalCount }))
+//       dispatch(setAppStatus({ status: 'succeeded' }))
+//     } catch (e: any) {
+//       errorUtils(dispatch, e)
+//     }
+//   }
+export const addNewPack = createAsyncThunk(
+  'pack/addNewPack',
+  async (arg: { data: AddNewPackType; attributes: GetPacksType }, { dispatch }) => {
     dispatch(setAppStatus({ status: 'loading' }))
     try {
-      await packsAPI.addNewPack(data)
+      await packsAPI.addNewPack(arg.data)
 
-      dispatch(getPacks(attributes))
+      dispatch(getPacks(arg.attributes))
       dispatch(setAppStatus({ status: 'succeeded' }))
     } catch (e: any) {
       errorUtils(dispatch, e)
     }
   }
-
-export const deletePack =
-  (packId: string, attributes: GetPacksType) => async (dispatch: AppDispatch) => {
+)
+// export const addNewPack =
+//   (data: AddNewPackType, attributes: GetPacksType) => async (dispatch: AppDispatch) => {
+//     dispatch(setAppStatus({ status: 'loading' }))
+//     try {
+//       await packsAPI.addNewPack(data)
+//
+//       dispatch(getPacks(attributes))
+//       dispatch(setAppStatus({ status: 'succeeded' }))
+//     } catch (e: any) {
+//       errorUtils(dispatch, e)
+//     }
+//   }
+export const deletePack = createAsyncThunk(
+  'pack/deletePack',
+  async (arg: { packId: string; attributes: GetPacksType }, { dispatch }) => {
     dispatch(setAppStatus({ status: 'loading' }))
     try {
-      await packsAPI.deletePack(packId)
+      await packsAPI.deletePack(arg.packId)
 
-      dispatch(getPacks(attributes))
+      dispatch(getPacks(arg.attributes))
       dispatch(setAppStatus({ status: 'succeeded' }))
     } catch (e: any) {
       errorUtils(dispatch, e)
     }
   }
-export const updatePack =
-  (data: UpdatePackType, attributes: GetPacksType) => async (dispatch: AppDispatch) => {
+)
+// export const deletePack =
+//   (packId: string, attributes: GetPacksType) => async (dispatch: AppDispatch) => {
+//     dispatch(setAppStatus({ status: 'loading' }))
+//     try {
+//       await packsAPI.deletePack(packId)
+//
+//       dispatch(getPacks(attributes))
+//       dispatch(setAppStatus({ status: 'succeeded' }))
+//     } catch (e: any) {
+//       errorUtils(dispatch, e)
+//     }
+//   }
+export const updatePack = createAsyncThunk(
+  'pack/updatePack',
+  async (arg: { data: UpdatePackType; attributes: GetPacksType }, { dispatch }) => {
     dispatch(setAppStatus({ status: 'loading' }))
     try {
-      await packsAPI.updatePack(data)
+      await packsAPI.updatePack(arg.data)
 
-      dispatch(getPacks(attributes))
+      dispatch(getPacks(arg.attributes))
       dispatch(setAppStatus({ status: 'succeeded' }))
     } catch (e: any) {
       errorUtils(dispatch, e)
     }
   }
+)
+// export const updatePack =
+//   (data: UpdatePackType, attributes: GetPacksType) => async (dispatch: AppDispatch) => {
+//     dispatch(setAppStatus({ status: 'loading' }))
+//     try {
+//       await packsAPI.updatePack(data)
+//
+//       dispatch(getPacks(attributes))
+//       dispatch(setAppStatus({ status: 'succeeded' }))
+//     } catch (e: any) {
+//       errorUtils(dispatch, e)
+//     }
+//   }
 
 //types
 type initialStateType = typeof initialState

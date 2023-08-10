@@ -3,7 +3,7 @@ import React, { useEffect } from 'react'
 import Paper from '@mui/material/Paper'
 import Table from '@mui/material/Table'
 import TableContainer from '@mui/material/TableContainer'
-import { useLocation, useSearchParams } from 'react-router-dom'
+import { useLocation, useNavigate, useSearchParams } from 'react-router-dom'
 
 import { FilterPanel } from '../FilterPanel/FilterPanel'
 import { AddPackModal } from '../Modals'
@@ -13,6 +13,7 @@ import s from './Packs.module.scss'
 import { PacksTableBody } from './PacksTableBody'
 import { PacksTableHead } from './PacksTableHead'
 
+import { PATH } from 'app/Routes/AppRoutes'
 import { AddNewPackType, UpdatePackType } from 's1-DAL/packsAPI'
 import { useAppDispatch, useAppSelector } from 's1-DAL/store'
 import { addNewPack, deletePack, getPacks, updatePack } from 's2-BLL/packSlice'
@@ -31,6 +32,7 @@ export const Packs = () => {
   const isLoggedIn = useAppSelector(isLoggedInSelector)
 
   const dispatch = useAppDispatch()
+  const navigate = useNavigate()
 
   //set params into URL
   const [searchParams, setSearchParams] = useSearchParams()
@@ -85,7 +87,8 @@ export const Packs = () => {
   }
 
   const onDeletePackHandle = (id: string) => {
-    dispatch(deletePack(id, paramsFromUrl))
+    dispatch(deletePack({ packId: id, attributes: paramsFromUrl }))
+    navigate(PATH.PACKS)
   }
 
   const onSearchNameDebounce = (value: string) => {
@@ -93,11 +96,11 @@ export const Packs = () => {
   }
 
   const onAddPackHandle = (data: AddNewPackType) => {
-    dispatch(addNewPack(data, paramsFromUrl))
+    dispatch(addNewPack({ data, attributes: paramsFromUrl }))
   }
 
   const onEditPackHandle = (data: UpdatePackType) => {
-    dispatch(updatePack(data, paramsFromUrl))
+    dispatch(updatePack({ data, attributes: paramsFromUrl }))
   }
 
   return (
@@ -129,10 +132,7 @@ export const Packs = () => {
         {packs?.length > 0 ? (
           <Table sx={{ minWidth: 650 }} aria-label="simple table">
             <PacksTableHead sort={sortPacks ?? '0updated'} setSort={setSortPacks} />
-            <PacksTableBody
-              onDeletePackHandle={onDeletePackHandle}
-              onEditPackHandle={onEditPackHandle}
-            />
+            <PacksTableBody />
           </Table>
         ) : (
           <div className={s.container}>

@@ -22,7 +22,6 @@ export const ActionsForCards: FC<ActionsForCardsPropsType> = ({ card }) => {
   const navigate = useNavigate()
 
   const { search } = useLocation()
-
   const paramsFromUrl = Object.fromEntries(new URLSearchParams(search))
 
   if (appStatus === 'loading') {

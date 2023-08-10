@@ -61,7 +61,13 @@ export const Cards = () => {
   }
 
   const onAddNewCardHandler = (data: AddNewCardType) => {
-    dispatch(addNewCard({ ...data, cardsPack_id }, { ...paramsFromUrl, cardsPack_id }))
+    dispatch(
+      addNewCard({
+        data: { ...data, cardsPack_id },
+        attributes: { ...paramsFromUrl, cardsPack_id },
+      })
+    )
+    // dispatch(addNewCard({ ...data, cardsPack_id }, { ...paramsFromUrl, cardsPack_id }))
   }
 
   if (cardsPack_id === null) return <Navigate to={PATH.PACKS} />

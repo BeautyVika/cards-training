@@ -1,5 +1,8 @@
-import { createSlice, PayloadAction } from '@reduxjs/toolkit'
+import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit'
 import { Dispatch } from 'redux'
+
+import { setAppStatus } from './appSlice'
+import { setCurrentCard, setShowAnswer } from './learnSlice'
 
 import {
   AddNewCardType,
@@ -9,12 +12,9 @@ import {
   UpdateCardGradeReturnType,
   UpdateCardGradeType,
   UpdateCardType,
-} from '../s1-DAL/cardsAPI'
-import { AppDispatch, RootState } from '../s1-DAL/store'
-import { errorUtils, getRandomCard } from '../s4-common'
-
-import { setAppStatus } from './appSlice'
-import { setCurrentCard, setShowAnswer } from './learnSlice'
+} from 's1-DAL/cardsAPI'
+import { AppDispatch, RootState } from 's1-DAL/store'
+import { errorUtils, getRandomCard } from 's4-common'
 
 const initialState = {
   cardsData: {} as CardsReturnType,
@@ -48,30 +48,57 @@ export const { setCards, setUpdateGrade } = cardsSlice.actions
 export const cardsReducer = cardsSlice.reducer
 
 //thunkCreators
-export const getCards = (attributes: GetCardsType) => async (dispatch: Dispatch) => {
-  dispatch(setAppStatus({ status: 'loading' }))
-  try {
-    const result = await cardsAPI.getAllCards(attributes)
-
-    dispatch(setCards({ cardsData: result.data }))
-    dispatch(setAppStatus({ status: 'succeeded' }))
-  } catch (e: any) {
-    errorUtils(dispatch, e)
-  }
-}
-
-export const addNewCard =
-  (data: AddNewCardType, attributes: GetCardsType) => async (dispatch: AppDispatch) => {
+export const getCards = createAsyncThunk(
+  'cards/getCards',
+  async (attributes: GetCardsType, { dispatch }) => {
     dispatch(setAppStatus({ status: 'loading' }))
     try {
-      await cardsAPI.addNewCard(data)
+      const result = await cardsAPI.getAllCards(attributes)
 
-      dispatch(getCards(attributes))
+      dispatch(setCards({ cardsData: result.data }))
       dispatch(setAppStatus({ status: 'succeeded' }))
     } catch (e: any) {
       errorUtils(dispatch, e)
     }
   }
+)
+// export const getCards = (attributes: GetCardsType) => async (dispatch: Dispatch) => {
+//   dispatch(setAppStatus({ status: 'loading' }))
+//   try {
+//     const result = await cardsAPI.getAllCards(attributes)
+//
+//     dispatch(setCards({ cardsData: result.data }))
+//     dispatch(setAppStatus({ status: 'succeeded' }))
+//   } catch (e: any) {
+//     errorUtils(dispatch, e)
+//   }
+// }
+export const addNewCard = createAsyncThunk(
+  'cards/addNewCard',
+  async (arg: { data: AddNewCardType; attributes: GetCardsType }, { dispatch }) => {
+    dispatch(setAppStatus({ status: 'loading' }))
+    try {
+      await cardsAPI.addNewCard(arg.data)
+
+      dispatch(getCards(arg.attributes))
+      dispatch(setAppStatus({ status: 'succeeded' }))
+    } catch (e: any) {
+      errorUtils(dispatch, e)
+    }
+  }
+)
+// export const addNewCard =
+//   (data: AddNewCardType, attributes: GetCardsType) => async (dispatch: AppDispatch) => {
+//     dispatch(setAppStatus({ status: 'loading' }))
+//     try {
+//       await cardsAPI.addNewCard(data)
+//
+//       dispatch(getCards(attributes))
+//       dispatch(setAppStatus({ status: 'succeeded' }))
+//     } catch (e: any) {
+//       errorUtils(dispatch, e)
+//     }
+//   }
 
 export const deleteCard =
   (cardId: string, attributes: GetCardsType) => async (dispatch: AppDispatch) => {

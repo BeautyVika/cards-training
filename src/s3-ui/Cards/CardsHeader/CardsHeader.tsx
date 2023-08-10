@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 
 import Typography from '@mui/material/Typography'
 import { useNavigate } from 'react-router-dom'
@@ -35,6 +35,8 @@ export const CardsHeader = (props: CardsHeaderType) => {
   const imgPack = useAppSelector(packDeckCoverSelector)
 
   const navigate = useNavigate()
+
+  useEffect(() => {}, [packName])
 
   const onLearnCards = () => {
     navigate(`${PATH.LEARN}/${props.packId}`)

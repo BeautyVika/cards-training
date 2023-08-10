@@ -162,7 +162,7 @@ export const createNewPassword = createAsyncThunk(
 )
 
 export const registrationThunk = createAsyncThunk(
-  'registration',
+  'auth/registration',
   async function (data: { email: string; password: string }, { dispatch }) {
     dispatch(setAppStatus({ status: 'loading' }))
     try {

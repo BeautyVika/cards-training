@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 
 import SchoolIcon from '@mui/icons-material/School'
 import { Skeleton } from '@mui/material'
@@ -12,7 +12,7 @@ import { DeletePackModal, EditPackModal } from '../Modals'
 import { PATH } from 'app/Routes/AppRoutes'
 import { UpdatePackType } from 's1-DAL/packsAPI'
 import { useAppDispatch, useAppSelector } from 's1-DAL/store'
-import { deletePack, updatePack } from 's2-BLL/packSlice'
+import { deletePack, getPacks, updatePack } from 's2-BLL/packSlice'
 import { appStatusSelector, userIdSelector } from 's4-common'
 
 type ActionsPropsType = {
@@ -57,12 +57,12 @@ export const ActionsForPack = ({
   }
 
   const onDeletePackHandle = (id: string) => {
-    dispatch(deletePack(id, paramsFromUrl))
+    dispatch(deletePack({ packId: id, attributes: paramsFromUrl }))
     navigate(PATH.PACKS)
   }
 
   const onEditPackHandle = (data: UpdatePackType) => {
-    dispatch(updatePack(data, paramsFromUrl))
+    dispatch(updatePack({ data, attributes: paramsFromUrl }))
   }
 
   const style = props.hasText
