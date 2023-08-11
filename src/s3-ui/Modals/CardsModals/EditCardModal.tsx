@@ -18,7 +18,7 @@ type EditCardModalPropsType = {
   cardAnswerImg: string | undefined
   question: string
   answer: string
-  onEditHandle: (data: UpdateCardType) => void
+  onEditCard: (data: UpdateCardType) => void
 }
 
 export const EditCardModal: FC<EditCardModalPropsType> = ({
@@ -27,7 +27,7 @@ export const EditCardModal: FC<EditCardModalPropsType> = ({
   cardAnswerImg,
   question,
   answer,
-  onEditHandle,
+  onEditCard,
 }) => {
   const [open, setOpen] = useState(false)
 
@@ -40,7 +40,8 @@ export const EditCardModal: FC<EditCardModalPropsType> = ({
   const { register, handleSubmit, reset, setValue } = useForm<UpdateCardType>()
 
   const onSubmit: SubmitHandler<UpdatePackType> = (data: UpdateCardType) => {
-    onEditHandle({ ...data, _id: cardId })
+    onEditCard({ ...data, _id: cardId })
+    // onEditHandle({ ...data, _id: cardId })
     handleClose()
   }
 

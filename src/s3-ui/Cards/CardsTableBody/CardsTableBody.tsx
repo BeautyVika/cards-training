@@ -8,10 +8,16 @@ import TableRow from '@mui/material/TableRow'
 
 import { ActionsForCards } from '../../Actions'
 
+import { UpdateCardType } from 's1-DAL/cardsAPI'
 import { useAppSelector } from 's1-DAL/store'
 import { appStatusSelector, cardsSelector, userIdSelector } from 's4-common'
 
-export const CardsTableBody = () => {
+type CardsTableBodyType = {
+  onEditCardHandle: (data: UpdateCardType) => void
+  onDeleteCardHandler: (id: string) => void
+}
+
+export const CardsTableBody = (props: CardsTableBodyType) => {
   const cards = useAppSelector(cardsSelector)
   const appStatus = useAppSelector(appStatusSelector)
   const userId = useAppSelector(userIdSelector)
@@ -35,7 +41,6 @@ export const CardsTableBody = () => {
               appStatus !== 'loading' && card.answer
             )}
             {appStatus === 'loading' && <Skeleton height={40} />}
-            {/*{appStatus === 'loading' ? <Skeleton height={40} /> : card.answer}*/}
           </TableCell>
           <TableCell align="left">
             {appStatus === 'loading' ? <Skeleton height={40} /> : card.updated.substring(0, 10)}
@@ -49,7 +54,15 @@ export const CardsTableBody = () => {
           </TableCell>
           {card.user_id === userId && (
             <TableCell align="left">
-              {appStatus === 'loading' ? <Skeleton height={40} /> : <ActionsForCards card={card} />}
+              {appStatus === 'loading' ? (
+                <Skeleton height={40} />
+              ) : (
+                <ActionsForCards
+                  card={card}
+                  onEditCard={props.onEditCardHandle}
+                  onDeleteCard={props.onDeleteCardHandler}
+                />
+              )}
             </TableCell>
           )}
         </TableRow>

@@ -99,19 +99,32 @@ export const addNewCard = createAsyncThunk(
 //       errorUtils(dispatch, e)
 //     }
 //   }
-
-export const deleteCard =
-  (cardId: string, attributes: GetCardsType) => async (dispatch: AppDispatch) => {
+export const deleteCard = createAsyncThunk(
+  'cards/addNewCard',
+  async (arg: { id: string; attributes: GetCardsType }, { dispatch }) => {
     dispatch(setAppStatus({ status: 'loading' }))
     try {
-      await cardsAPI.deleteCard(cardId)
+      await cardsAPI.deleteCard(arg.id)
 
-      dispatch(getCards(attributes))
+      dispatch(getCards(arg.attributes))
       dispatch(setAppStatus({ status: 'succeeded' }))
     } catch (e: any) {
       errorUtils(dispatch, e)
     }
   }
+)
+// export const deleteCard =
+//   (id: string, attributes: GetCardsType) => async (dispatch: AppDispatch) => {
+//     dispatch(setAppStatus({ status: 'loading' }))
+//     try {
+//       await cardsAPI.deleteCard(id)
+//
+//       dispatch(getCards(attributes))
+//       dispatch(setAppStatus({ status: 'succeeded' }))
+//     } catch (e: any) {
+//       errorUtils(dispatch, e)
+//     }
+//   }
 export const updateCard =
   (data: UpdateCardType, attributes: GetCardsType) => async (dispatch: AppDispatch) => {
     dispatch(setAppStatus({ status: 'loading' }))

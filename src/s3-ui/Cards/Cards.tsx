@@ -3,7 +3,7 @@ import React, { useEffect } from 'react'
 import Paper from '@mui/material/Paper'
 import Table from '@mui/material/Table'
 import TableContainer from '@mui/material/TableContainer'
-import { Navigate, useLocation, useSearchParams } from 'react-router-dom'
+import { Navigate, useLocation, useNavigate, useSearchParams } from 'react-router-dom'
 
 import s from './Cards.module.scss'
 import { CardsHeader } from './CardsHeader'
@@ -11,9 +11,9 @@ import { CardsTableBody } from './CardsTableBody'
 import { CardsTableHead } from './CardsTableHead'
 
 import { PATH } from 'app/Routes/AppRoutes'
-import { AddNewCardType } from 's1-DAL/cardsAPI'
+import { AddNewCardType, UpdateCardType } from 's1-DAL/cardsAPI'
 import { useAppDispatch, useAppSelector } from 's1-DAL/store'
-import { addNewCard, getCards } from 's2-BLL/cardsSlice'
+import { addNewCard, deleteCard, getCards, updateCard } from 's2-BLL/cardsSlice'
 import { SuperPagination } from 's3-ui/Pagination/Pagination'
 import { cardsSelector, cardsTotalCountSelector, isLoggedInSelector, SearchField } from 's4-common'
 
@@ -23,6 +23,7 @@ export const Cards = () => {
   const isLoggedIn = useAppSelector(isLoggedInSelector)
 
   const dispatch = useAppDispatch()
+  const navigate = useNavigate()
   //set params into URL
   const [searchParams, setSearchParams] = useSearchParams()
   //get Single Params From URL
@@ -38,7 +39,7 @@ export const Cards = () => {
 
   useEffect(() => {
     if (!isLoggedIn) return
-    dispatch(getCards({ ...paramsFromUrl, cardsPack_id: cardsPack_id }))
+    dispatch(getCards({ ...paramsFromUrl, cardsPack_id }))
   }, [searchParams, isLoggedIn])
 
   const onSearchNameDebounce = (value: string) => {
@@ -69,6 +70,21 @@ export const Cards = () => {
     )
     // dispatch(addNewCard({ ...data, cardsPack_id }, { ...paramsFromUrl, cardsPack_id }))
   }
+  const onEditCardHandle = (data: UpdateCardType) => {
+    dispatch(updateCard(data, { ...paramsFromUrl, cardsPack_id }))
+  }
+  const onDeleteCardHandler = (id: string) => {
+    dispatch(
+      deleteCard({
+        id,
+        attributes: {
+          ...paramsFromUrl,
+          cardsPack_id,
+        },
+      })
+    )
+    navigate(PATH.CARDS)
+  }
 
   if (cardsPack_id === null) return <Navigate to={PATH.PACKS} />
 
@@ -85,7 +101,10 @@ export const Cards = () => {
         {cards?.length > 0 ? (
           <Table sx={{ minWidth: 650 }} aria-label="simple table">
             <CardsTableHead setSort={setSortCards} sort={sortCards ?? '0updated'} />
-            <CardsTableBody />
+            <CardsTableBody
+              onEditCardHandle={onEditCardHandle}
+              onDeleteCardHandler={onDeleteCardHandler}
+            />
           </Table>
         ) : (
           <div className={s.container}>

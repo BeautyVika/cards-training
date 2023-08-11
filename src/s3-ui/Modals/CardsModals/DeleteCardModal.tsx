@@ -11,21 +11,22 @@ type DeleteCardModalType = {
   cardId: string
   cardQuestionImg: string | undefined
   question: string
-  onDelete: (id: string) => void
+  onDeleteCard: (id: string) => void
 }
 
 export const DeleteCardModal: FC<DeleteCardModalType> = ({
   cardId,
   cardQuestionImg,
   question,
-  onDelete,
+  onDeleteCard,
 }) => {
   const [open, setOpen] = useState(false)
   const handleOpen = () => setOpen(true)
   const handleClose = () => setOpen(false)
 
   const onDeleteHandler = () => {
-    onDelete(cardId)
+    debugger
+    onDeleteCard(cardId)
   }
 
   return (
