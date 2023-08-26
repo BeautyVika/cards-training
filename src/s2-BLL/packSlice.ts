@@ -9,7 +9,6 @@ import {
   packsAPI,
   UpdatePackType,
 } from 's1-DAL/packsAPI'
-import { AppDispatch, RootState } from 's1-DAL/store'
 import { errorUtils } from 's4-common'
 
 const initialState = {
@@ -63,22 +62,6 @@ export const getPacks = createAsyncThunk(
     }
   }
 )
-// export const getPacks =
-//   (attributes: GetPacksType) => async (dispatch: AppDispatch, getState: () => RootState) => {
-//     dispatch(setAppStatus({ status: 'loading' }))
-//
-//     try {
-//       const result = await packsAPI.getAllPacks(attributes)
-//
-//       dispatch(setPacks({ packsData: result.data }))
-//       dispatch(setMinPacksCount({ value: result.data.minCardsCount }))
-//       dispatch(setMaxCardsCount({ value: result.data.maxCardsCount }))
-//       dispatch(setPacksTotalCount({ value: result.data.cardPacksTotalCount }))
-//       dispatch(setAppStatus({ status: 'succeeded' }))
-//     } catch (e: any) {
-//       errorUtils(dispatch, e)
-//     }
-//   }
 export const addNewPack = createAsyncThunk(
   'pack/addNewPack',
   async (arg: { data: AddNewPackType; attributes: GetPacksType }, { dispatch }) => {
@@ -93,18 +76,6 @@ export const addNewPack = createAsyncThunk(
     }
   }
 )
-// export const addNewPack =
-//   (data: AddNewPackType, attributes: GetPacksType) => async (dispatch: AppDispatch) => {
-//     dispatch(setAppStatus({ status: 'loading' }))
-//     try {
-//       await packsAPI.addNewPack(data)
-//
-//       dispatch(getPacks(attributes))
-//       dispatch(setAppStatus({ status: 'succeeded' }))
-//     } catch (e: any) {
-//       errorUtils(dispatch, e)
-//     }
-//   }
 export const deletePack = createAsyncThunk(
   'pack/deletePack',
   async (arg: { packId: string; attributes: GetPacksType }, { dispatch }) => {
@@ -119,18 +90,6 @@ export const deletePack = createAsyncThunk(
     }
   }
 )
-// export const deletePack =
-//   (packId: string, attributes: GetPacksType) => async (dispatch: AppDispatch) => {
-//     dispatch(setAppStatus({ status: 'loading' }))
-//     try {
-//       await packsAPI.deletePack(packId)
-//
-//       dispatch(getPacks(attributes))
-//       dispatch(setAppStatus({ status: 'succeeded' }))
-//     } catch (e: any) {
-//       errorUtils(dispatch, e)
-//     }
-//   }
 export const updatePack = createAsyncThunk(
   'pack/updatePack',
   async (arg: { data: UpdatePackType; attributes: GetPacksType }, { dispatch }) => {
@@ -145,18 +104,6 @@ export const updatePack = createAsyncThunk(
     }
   }
 )
-// export const updatePack =
-//   (data: UpdatePackType, attributes: GetPacksType) => async (dispatch: AppDispatch) => {
-//     dispatch(setAppStatus({ status: 'loading' }))
-//     try {
-//       await packsAPI.updatePack(data)
-//
-//       dispatch(getPacks(attributes))
-//       dispatch(setAppStatus({ status: 'succeeded' }))
-//     } catch (e: any) {
-//       errorUtils(dispatch, e)
-//     }
-//   }
 
 //types
 type initialStateType = typeof initialState

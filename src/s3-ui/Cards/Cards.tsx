@@ -23,7 +23,6 @@ export const Cards = () => {
   const isLoggedIn = useAppSelector(isLoggedInSelector)
 
   const dispatch = useAppDispatch()
-  const navigate = useNavigate()
   //set params into URL
   const [searchParams, setSearchParams] = useSearchParams()
   //get Single Params From URL
@@ -68,7 +67,6 @@ export const Cards = () => {
         attributes: { ...paramsFromUrl, cardsPack_id },
       })
     )
-    // dispatch(addNewCard({ ...data, cardsPack_id }, { ...paramsFromUrl, cardsPack_id }))
   }
   const onEditCardHandle = (data: UpdateCardType) => {
     dispatch(updateCard(data, { ...paramsFromUrl, cardsPack_id }))
@@ -83,7 +81,6 @@ export const Cards = () => {
         },
       })
     )
-    navigate(PATH.CARDS)
   }
 
   if (cardsPack_id === null) return <Navigate to={PATH.PACKS} />

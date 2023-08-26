@@ -25,7 +25,6 @@ export const DeleteCardModal: FC<DeleteCardModalType> = ({
   const handleClose = () => setOpen(false)
 
   const onDeleteHandler = () => {
-    debugger
     onDeleteCard(cardId)
   }
 

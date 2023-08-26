@@ -1,5 +1,4 @@
 import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit'
-import { Dispatch } from 'redux'
 
 import { setAppStatus } from './appSlice'
 import { setCurrentCard, setShowAnswer } from './learnSlice'
@@ -62,17 +61,6 @@ export const getCards = createAsyncThunk(
     }
   }
 )
-// export const getCards = (attributes: GetCardsType) => async (dispatch: Dispatch) => {
-//   dispatch(setAppStatus({ status: 'loading' }))
-//   try {
-//     const result = await cardsAPI.getAllCards(attributes)
-//
-//     dispatch(setCards({ cardsData: result.data }))
-//     dispatch(setAppStatus({ status: 'succeeded' }))
-//   } catch (e: any) {
-//     errorUtils(dispatch, e)
-//   }
-// }
 export const addNewCard = createAsyncThunk(
   'cards/addNewCard',
   async (arg: { data: AddNewCardType; attributes: GetCardsType }, { dispatch }) => {
@@ -87,18 +75,6 @@ export const addNewCard = createAsyncThunk(
     }
   }
 )
-// export const addNewCard =
-//   (data: AddNewCardType, attributes: GetCardsType) => async (dispatch: AppDispatch) => {
-//     dispatch(setAppStatus({ status: 'loading' }))
-//     try {
-//       await cardsAPI.addNewCard(data)
-//
-//       dispatch(getCards(attributes))
-//       dispatch(setAppStatus({ status: 'succeeded' }))
-//     } catch (e: any) {
-//       errorUtils(dispatch, e)
-//     }
-//   }
 export const deleteCard = createAsyncThunk(
   'cards/addNewCard',
   async (arg: { id: string; attributes: GetCardsType }, { dispatch }) => {
@@ -113,18 +89,6 @@ export const deleteCard = createAsyncThunk(
     }
   }
 )
-// export const deleteCard =
-//   (id: string, attributes: GetCardsType) => async (dispatch: AppDispatch) => {
-//     dispatch(setAppStatus({ status: 'loading' }))
-//     try {
-//       await cardsAPI.deleteCard(id)
-//
-//       dispatch(getCards(attributes))
-//       dispatch(setAppStatus({ status: 'succeeded' }))
-//     } catch (e: any) {
-//       errorUtils(dispatch, e)
-//     }
-//   }
 export const updateCard =
   (data: UpdateCardType, attributes: GetCardsType) => async (dispatch: AppDispatch) => {
     dispatch(setAppStatus({ status: 'loading' }))
