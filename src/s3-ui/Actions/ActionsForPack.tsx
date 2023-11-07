@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import React from 'react'
 
 import SchoolIcon from '@mui/icons-material/School'
 import { Skeleton } from '@mui/material'

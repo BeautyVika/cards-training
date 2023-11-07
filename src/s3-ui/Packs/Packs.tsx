@@ -99,10 +99,6 @@ export const Packs = () => {
     dispatch(addNewPack({ data, attributes: paramsFromUrl }))
   }
 
-  const onEditPackHandle = (data: UpdatePackType) => {
-    dispatch(updatePack({ data, attributes: paramsFromUrl }))
-  }
-
   return (
     <div className={s.block}>
       <div className={s.header}>

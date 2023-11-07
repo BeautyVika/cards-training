@@ -10,15 +10,9 @@ import defaultCover from '../../../assets/img/defaultCover.svg'
 import { ActionsForPack } from '../../Actions'
 
 import { PATH } from 'app/Routes/AppRoutes'
-import { UpdatePackType } from 's1-DAL/packsAPI'
 import { useAppSelector } from 's1-DAL/store'
 import { appStatusSelector } from 's4-common'
 import { packsSelector } from 's4-common/selectors/packsSelectors'
-//
-// type PacksTableBodyType = {
-//   // onDeletePackHandle: (id: string) => void
-//   onEditPackHandle: (data: UpdatePackType) => void
-// }
 
 export const PacksTableBody: FC = () => {
   const packs = useAppSelector(packsSelector)
